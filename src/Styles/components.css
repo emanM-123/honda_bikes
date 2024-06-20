@@ -1,6 +1,6 @@
 .header {
   background-color: black;
-  height: 100px;
+  height: 110px;
   color: white;
   z-index: 1000;
 }
@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 10px 20px;
 }
 
 .header__logo {
@@ -118,12 +118,10 @@
     flex-direction: column;
     align-items: self-start;
     position: absolute;
-    top: calc(100% - 20px);
-    width: 100%;
+    width: 102%;
     background-color: black;
-    padding: 20px 0;
-    /* opacity: 0.9; */
-    height: auto;
+    margin-top: 290px;
+    z-index: 100;
   }
 
   .header__menu .header__link {
@@ -134,18 +132,6 @@
     display: none;
     margin-left: 0;
   }
-
-  /* .header__icon.open {
-      justify-content: center;
-      display: flex;
-      position: absolute;
-      left: 0;
-      background-color: black;
-      padding: 0;
-      opacity: 0.8;
-      top: calc(100% + 226px); 
-      width: 100%;
-    } */
 
   .bar {
     width: 20px;
