@@ -1,0 +1,76 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  gap: 20px;
+  padding-left: 80px;
+  padding-right: 80px;
+  position: relative;
+}
+
+.responsive-slider {
+  display: none;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.box span{
+  position: absolute;
+  bottom: 0;
+}
+
+.box img {
+  width: 100%;
+}
+
+.dream-honda {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.dream-honda p {
+  font-size: 50px;
+  font-weight: lighter;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: none;
+  }
+
+  .responsive-slider {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+  }
+
+  .res-slide-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .slide-bar {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: gray;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+}

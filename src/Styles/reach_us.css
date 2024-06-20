@@ -1,0 +1,551 @@
+.slideshow1-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  align-items: center;
+}
+
+.reach-us-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  padding: 20px;
+}
+
+.reach-us-text {
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: bolder;
+  margin-left: 20px;
+}
+
+.reach-us-image {
+  width: 60px;
+  height: 70px;
+}
+
+
+.form-container {
+  margin-top: 130px;
+}
+
+.form-container input {
+  background-color: rgb(17, 17, 17);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.89);
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-column {
+  margin-bottom: 10px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.e-input {
+  width: 450px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.89);
+  background-color: rgb(17, 17, 17);
+  color: white;
+  margin: 8px;
+  height: 22px;
+  margin-left: auto;
+}
+
+.text-area {
+  height: 55px;
+}
+
+.s-input {
+  width: 465px;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.89);
+  margin-right: 12px;
+  margin-left: auto;
+}
+
+.mobile-input {
+  width: 300px;
+  margin-top: 1px;
+  margin-right: 15px;
+}
+
+.input-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+}
+
+.btn {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.otp-btn {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  width: 140px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.frame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.frame img {
+  height: 300px;
+  width: 350px;
+  margin: 30px;
+}
+
+@media screen and (max-width:1030px) {
+  .reach-us-text {
+    font-size: 30px;
+    margin-left: 15px;
+  }
+
+  .reach-us-image {
+    width: 40px;
+    height: 50px;
+  }
+
+
+  .form-container {
+    margin-top: 100px;
+  }
+
+  .input-row {
+    margin-bottom: 0;
+  }
+
+  .input-column {
+    margin-bottom: 0;
+  }
+
+  .e-input {
+    width: 350px;
+    margin-left: 0;
+  }
+
+  .text-area {
+    height: 55px;
+  }
+
+  .input-column {
+    margin-top: 3px;
+  }
+
+  .s-input {
+    width: 365px;
+    margin-left: 0;
+  }
+
+  .mobile-input {
+    width: 250px;
+    margin-top: 1px;
+    margin-right: 5px;
+  }
+
+  .input-btn {
+    margin-top: 0;
+  }
+
+  .otp-btn {
+    width: 100px;
+  }
+
+  .frame img {
+    height: 250px;
+    width: 250px;
+    margin: 20px;
+  }
+}
+
+@media screen and (max-width:786px) {
+  .e-input {
+    width: 250px;
+    margin-left: 0;
+  }
+
+  .input-column {
+    margin-top: 3px;
+  }
+
+  .s-input {
+    width: 265px;
+    margin-left: 0;
+  }
+
+  .mobile-input {
+    width: 150px;
+    margin-top: 1px;
+    margin-left: -30px;
+  }
+
+  .otp-btn {
+    width: 90px;
+    margin-left: -20px;
+    margin-top: 3px;
+  }
+
+  .frame img {
+    height: 180px;
+    width: 180px;
+    margin: 20px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .reach-us-container {
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+
+  }
+
+  .form-container {
+    margin-top: 0;
+    width: 80%;
+  }
+
+  .e-input,
+  .text-area,
+  .otp-btn {
+    width: 100%;
+  }
+
+  .s-input {
+    width: 96%;
+    margin-left: 5px;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 60%;
+    margin-bottom: 10px;
+    margin-left: 60px;
+  }
+
+  .otp-btn {
+    width: 40%;
+    margin-left: 100px;
+  }
+
+  .input-column {
+    margin-bottom: 20px;
+  }
+
+  .frame {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .frame img {
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .e-input {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mobile-input {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+  }
+}
+
+
+/*rsa&ew css*/
+
+.rsa-form-container {
+  margin-top: 160px;
+  width: 70%;
+}
+
+.rsa-form-container input {
+  background-color: rgb(17, 17, 17);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.89);
+}
+
+.rsa-select-model {
+  width: 100%;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.rsa-select-branch {
+  width: 100%;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-bottom: 100px;
+}
+
+.rsa-title-input {
+  width: 17%;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.rsa-name-input {
+  width: 38%;
+  padding: 8px;
+  height: 22px;
+  margin-left: 10px;
+}
+
+.rsa-email-input {
+  width: 44%;
+  padding: 8px;
+  height: 22px;
+  margin-bottom: 10px;
+}
+
+.rsa-mob-input {
+  width: 35%;
+  margin-left: 10px;
+  height: 22px;
+  padding: 8px;
+}
+
+.rsa-otp-btn {
+  width: 14%;
+  background-color: red;
+  padding: 10px 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.rsa-std-input {
+  width: 47%;
+  padding: 8px;
+  height: 22px;
+}
+
+.rsa-phone-input {
+  width: 47%;
+  padding: 8px;
+  height: 22px;
+  margin-left: 10px;
+}
+
+.rsa-row7 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rsa-btn {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+  margin: 10px;
+}
+
+.rsa-desc-input {
+  width: 97%;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255);
+  border-radius: 2px;
+  margin-top: 10px;
+}
+
+.rsa-checkbox-input{
+  border: 2px;
+}
+
+.gap {
+  margin-bottom: 20px;
+}
+
+.rsa-row6 {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.rsa-checkbox-custom {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+  position: relative;
+  background-color: black;
+  border-color:white;
+}
+
+.rsa-checkbox-input{
+  width: 16px;
+  height: 16px;
+  
+}
+
+.rsa-checkbox-text {
+  font-size: 14px;
+  padding-top: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
+}
+
+@media screen and (max-width:768px) {
+  .reach-us-text {
+    font-size: 24px;
+  }
+
+  .rsa-form-container {
+    margin-top: 0;
+  }
+
+  .rsa-select-model {
+    width: 95%;
+  }
+
+  .rsa-select-branch {
+    width: 95%;
+    margin-bottom: 20px;
+  }
+
+  .rsa-title-input {
+    width: 95%;
+    font-size: 12px;
+  }
+
+  .rsa-name-input {
+    width: 40%;
+    font-size: 12px;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-top: 10px;
+  }
+
+  .rsa-email-input {
+    width: 88%;
+    font-size: 12px;
+  }
+
+  .rsa-mob-input {
+    width: 55%;
+    margin-left: 0;
+    font-size: 12px;
+  }
+
+  .rsa-otp-btn {
+    width: 30%;
+    font-size: 12px;
+  }
+
+  .rsa-std-input {
+    width: 88%;
+    font-size: 12px;
+  }
+
+  .rsa-phone-input {
+    width: 88%;
+    font-size: 12px;
+    margin-left: 0;
+  }
+
+  .rsa-row7 {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .rsa-btn {
+    background-color: red;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    height: 35px;
+    width: 100px;
+    margin: 10px;
+  }
+
+  .rsa-desc-input {
+    width: 88%;
+    font-size: 12px;
+  }
+
+  .gap {
+    margin-bottom: 10px;
+  }
+
+  .rsa-checkbox-text {
+    font-size: 8px;
+  }
+
+  .rsa-btn {
+    width: 70px;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+  }
+}
