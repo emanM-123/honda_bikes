@@ -37,9 +37,9 @@ export function Header() {
         </div>
 
         <div className={`header__icon ${menuOpen ? 'open' : ''}`}>
-          <a href="https://www.facebook.com/bikenbiker"><img src="/images/facebook.png" alt="facebook" /></a>
-          <a href="https://www.instagram.com/bikenbiker"><img src="/images/instagram.png" alt="instagram" /></a>
-          <a href="https://www.youtube.com/bikenbiker"><img src="/images/youtube.png" alt="youtube" /></a>
+          <a href="https://www.facebook.com/HondaBigWingIndia"><img src="/images/facebook.png" alt="facebook" /></a>
+          <a href="https://www.instagram.com/bigwingindia/"><img src="/images/instagram.png" alt="instagram" /></a>
+          <a href="https://www.youtube.com/channel/UC1x_DVJQT3DMbmnavnFvStg?view_as=subscriber"><img src="/images/youtube.png" alt="youtube" /></a>
         </div>
       </div>
       <div className="toggle-menu" onClick={handleToggleMenu}>

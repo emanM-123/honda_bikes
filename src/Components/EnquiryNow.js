@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../Styles/book_now.css';
+import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
 const EnquiryNow = ({ selectedVariant, selectedBike }) => {
@@ -36,6 +37,15 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
             return;
         }
 
+        if (!validateEmail(formData.email)) {
+            alert('Please enter a valid email address.');
+            return;
+          }
+          if (!validateMobile(formData.mobile)) {
+            alert('Please enter a valid mobile number.');
+            return;
+          }
+
         const data = {
             templateType: 'enquiryNow',
             to: 'eman.maharana@gmail.com', 
@@ -47,7 +57,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-email', data);
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
                 setFormData({ name: '', email: '', mobile: '' }); 

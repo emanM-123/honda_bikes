@@ -6,6 +6,7 @@ import BookNow from "./Components/BookNow";
 import ReachUs from "./Components/ReachUs";
 import RasEw from "./Components/RasEw";
 import Disclaimer from "./Components/Disclaimer";
+import PrivacyPolicy from "./Components/PrivacyPolicy";
 import TestRide from "./Components/TestRide";
 import { Header } from "./Components/Header";
 import { Footer } from "./Components/Footer";
@@ -36,6 +37,7 @@ function App() {
             <Route path='/disclaimer' element={<Disclaimer />} />
             <Route path='/test_ride' element={<TestRide />} />
             <Route path='/product_enquiry' element={<ProductEnquiry />} />
+            <Route path='/privacy_policy' element={<PrivacyPolicy />} />
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -13,7 +13,7 @@ export function Footer() {
           <span className="menu-divider">|</span>
           {/* <li><a href="#">MEDIA CENTER</a></li>
           <span className="menu-divider">|</span> */}
-          <li><a href="#">PRIVACY POLICY</a></li>
+          <li><a href="/privacy_policy">PRIVACY POLICY</a></li>
           <span className="menu-divider">|</span>
           <li><a href="/disclaimer">DISCLAIMER</a></li>
           <span className="menu-divider">|</span>
@@ -23,9 +23,9 @@ export function Footer() {
         </ul>
       </div>
       <div className="social-links">
-        <a href="https://www.facebook.com/bikenbiker"><img src="/images/facebook.png" alt="Facebook" /></a>
-        <a href="https://www.instagram.com/bikenbiker"><img src="/images/instagram.png" alt="Instagram" /></a>
-        <a href="https://www.youtube.com/bikenbiker"><img src="/images/youtube.png" alt="YouTube" /></a>
+        <a href="https://www.facebook.com/HondaBigWingIndia"><img src="/images/facebook.png" alt="Facebook" /></a>
+        <a href="https://www.instagram.com/bigwingindia/"><img src="/images/instagram.png" alt="Instagram" /></a>
+        <a href="https://www.youtube.com/channel/UC1x_DVJQT3DMbmnavnFvStg?view_as=subscriber"><img src="/images/youtube.png" alt="YouTube" /></a>
       </div>
     </div>
 

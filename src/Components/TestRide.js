@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { validateEmail, validateMobile } from '../Utils/validation';
 
 const TestRide = (selectedBike) => {
     const [selected, setSelected] = useState('TITLE');
@@ -43,6 +44,16 @@ const TestRide = (selectedBike) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateEmail(formData.email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        if (!validateMobile(formData.mobile)) {
+            alert('Please enter a valid mobile number.');
+            return;
+        }
+
         if (!checked) {
             alert('Please agree to the Terms & Conditions');
             return;
@@ -61,7 +72,7 @@ const TestRide = (selectedBike) => {
         };
         
         try {
-            const response = await axios.post('http://localhost:3001/api/send-email', data);
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
                 setFormData({ name: '', email: '', mobile: '' }); 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
 export default function ReachUs() {
@@ -55,11 +56,25 @@ export default function ReachUs() {
       alert('Please fill out all mandatory fields: First Name, Phone Number, Email, and Branch');
       return;
     }
+
+    if (!validateEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    if (!validateMobile(mobile)) {
+      alert('Please enter a valid mobile number.');
+      return;
+    }
+    if (!validateMobile(phone)) {
+      alert('Please enter a valid mobile number.');
+      return;
+    }
+
     try {
       const data = {
         templateType: 'reachUs',
         name: fname + ' ' + lname,
-        emailSubject: 'Reach Us Form Submission', 
+        emailSubject: 'Reach Us Form Submission',
         email: email,
         phone: phone,
         branch: selected,
@@ -70,7 +85,7 @@ export default function ReachUs() {
 
 
       try {
-        const response = await axios.post('http://localhost:3001/api/send-email', data);
+        const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
         if (response.status === 200) {
           alert('Email sent successfully');
           handleReset();

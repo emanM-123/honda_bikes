@@ -579,21 +579,22 @@ const bikeSDetails = [
                     }
                 ],
 
-            }, {
-                name: "CUSTOMIZATION",
-                price:"",
-                colors: [
-                    {
-                        color: "SOLO CARRIER CUSTOM",
-                        link: "/bikeImages/CB350/Solo_Carrier_Custom_dev3.png"
-                    },
-                    {
-                        color: "COMFORT CUSTOM",
-                        link: "/bikeImages/CB350/Tourer_Custom_dev2.png"
-                    }
-                ],
+            }, 
+            // {
+            //     name: "CUSTOMIZATION",
+            //     price:"",
+            //     colors: [
+            //         {
+            //             color: "SOLO CARRIER CUSTOM",
+            //             link: "/bikeImages/CB350/Solo_Carrier_Custom_dev3.png"
+            //         },
+            //         {
+            //             color: "COMFORT CUSTOM",
+            //             link: "/bikeImages/CB350/Tourer_Custom_dev2.png"
+            //         }
+            //     ],
 
-            },
+            // },
         ],
         features: [
             {
@@ -751,29 +752,29 @@ const bikeSDetails = [
                 ],
 
             },
-            {
-                name: "CUSTOMIZATION",
-                price:"Rs.216356",
-                colors: [
-                    {
-                        color: "CAFE RACER CUSTOM",
-                        link: "/bikeImages/HnessCB350/CAFE_RACER_CUSTOM.png"
-                    },
-                    {
-                        color: "COMFORT CUSTOM",
-                        link: "/bikeImages/HnessCB350/COMFORT_CUSTOM.png"
-                    },
-                    {
-                        color: "SOLO CARRIER CUSTOM",
-                        link: "/bikeImages/HnessCB350/SOLO_CARRIER_CUSTOM.png"
-                    },
-                    {
-                        color: "TOURER CUSTOM",
-                        link: "/bikeImages/HnessCB350/TOURER_CUSTOM.png"
-                    }
-                ],
+            // {
+            //     name: "CUSTOMIZATION",
+            //     price:"Rs.216356",
+            //     colors: [
+            //         {
+            //             color: "CAFE RACER CUSTOM",
+            //             link: "/bikeImages/HnessCB350/CAFE_RACER_CUSTOM.png"
+            //         },
+            //         {
+            //             color: "COMFORT CUSTOM",
+            //             link: "/bikeImages/HnessCB350/COMFORT_CUSTOM.png"
+            //         },
+            //         {
+            //             color: "SOLO CARRIER CUSTOM",
+            //             link: "/bikeImages/HnessCB350/SOLO_CARRIER_CUSTOM.png"
+            //         },
+            //         {
+            //             color: "TOURER CUSTOM",
+            //             link: "/bikeImages/HnessCB350/TOURER_CUSTOM.png"
+            //         }
+            //     ],
 
-            },
+            // },
         ],
         features: [
             {
@@ -906,21 +907,21 @@ const bikeSDetails = [
                 ],
 
             },
-            {
-                name: "CUSTOMIZATION",
-                price:"Rs.219357",
-                colors: [
-                    {
-                        color: "CAFE RACER CUSTOM",
-                        link: "/bikeImages/CB350RS/Athletic_Blue_Metallic.png"
-                    },
-                    {
-                        color: "SUV CUSTOM",
-                        link: "/bikeImages/CB350RS/Black_with_Pearl_Sports_Yellow_Custom_23.png"
-                    }
-                ],
+            // {
+            //     name: "CUSTOMIZATION",
+            //     price:"Rs.219357",
+            //     colors: [
+            //         {
+            //             color: "CAFE RACER CUSTOM",
+            //             link: "/bikeImages/CB350RS/Athletic_Blue_Metallic.png"
+            //         },
+            //         {
+            //             color: "SUV CUSTOM",
+            //             link: "/bikeImages/CB350RS/Black_with_Pearl_Sports_Yellow_Custom_23.png"
+            //         }
+            //     ],
 
-            },
+            // },
         ],
         features: [
             {

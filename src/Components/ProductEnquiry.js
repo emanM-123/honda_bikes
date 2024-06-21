@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
 const ProductEnquiry = () => {
@@ -11,7 +12,6 @@ const ProductEnquiry = () => {
         email: '',
         mobile: '',
         address: 'BANGALORE',
-        dealer: '',
     });
 
     const handleCheckboxChange = () => {
@@ -30,11 +30,6 @@ const ProductEnquiry = () => {
     const handleBranchChange = (event) => {
         setSelectedBranch(event.target.value);
     };
-
-    const handleDealerChange = (event) => {
-        setFormData({ ...formData, dealer: event.target.value });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!checked) {
@@ -42,6 +37,14 @@ const ProductEnquiry = () => {
             return;
         }
 
+        if (!validateEmail(formData.email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        if (!validateMobile(formData.mobile)) {
+            alert('Please enter a valid mobile number.');
+            return;
+        }
         const data = {
             ...formData,
             title: selected,
@@ -54,7 +57,7 @@ const ProductEnquiry = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-email', data);
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
                 handleReset();
@@ -81,17 +84,12 @@ const ProductEnquiry = () => {
         { label: 'REJESHWARI NAGAR', value: 'REJESHWARI NAGAR' },
     ];
 
-    const options3 = [
-        { label: "SELECT DEALER", value: '' }
-    ];
-
     const handleReset = () => {
         setFormData({
             name: '',
             email: '',
             mobile: '',
             address: 'BANGALORE',
-            dealer: '',
         });
         setSelected('');
         setSelectedBranch('');
@@ -160,13 +158,7 @@ const ProductEnquiry = () => {
                             </select>
                         </div>
                         <div>
-                            <select className='ride-dealer-select' onChange={handleDealerChange} value={formData.dealer}>
-                                {options3.map((option2) => (
-                                    <option key={option2.value} value={option2.value}>
-                                        {option2.label}
-                                    </option>
-                                ))}
-                            </select>
+
                         </div>
                         <div htmlFor="terms" className="product-enquiry-checkbox-label">
                             <input
