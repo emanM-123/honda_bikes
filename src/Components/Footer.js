@@ -11,14 +11,14 @@ export function Footer() {
         <ul>
           <li><a href="/our_story">OUR STORY</a></li>
           <span className="menu-divider">|</span>
-          <li><a href="#">MEDIA CENTER</a></li>
-          <span className="menu-divider">|</span>
+          {/* <li><a href="#">MEDIA CENTER</a></li>
+          <span className="menu-divider">|</span> */}
           <li><a href="#">PRIVACY POLICY</a></li>
           <span className="menu-divider">|</span>
           <li><a href="/disclaimer">DISCLAIMER</a></li>
           <span className="menu-divider">|</span>
-          <li><a href="#">VISIT CORPORATE WEBSITE</a></li>
-          <span className="menu-divider">|</span>
+          {/* <li><a href="#">VISIT CORPORATE WEBSITE</a></li>
+          <span className="menu-divider">|</span> */}
           <li><a href="/reach_us">CONTACT US</a></li>
         </ul>
       </div>

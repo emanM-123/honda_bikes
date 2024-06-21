@@ -129,7 +129,7 @@ const BookNow = () => {
         <EnquiryNow selectedVariant={selectedVariant} selectedBike={selectedBike} />
       </div>
       <div>
-        <TestRide />
+        <TestRide selectedBike={selectedBike} />
       </div>
       <div>
         <Features selectedBike={selectedBike}  />

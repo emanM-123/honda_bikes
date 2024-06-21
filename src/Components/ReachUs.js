@@ -1,34 +1,101 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function ReachUs() {
   const [selected, setSelected] = useState('SELECT YOUR BRANCH');
   const options = [
-    { label: 'SELECT YOUR BRANCH', value: '' },
-    { label: 'Topline Bangaluru', value: 'Topline Bangaluru' },
-    { label: 'Banashankari', value: 'Banashankari' },
-    { label: 'Rajeshwari Nagar', value: 'Rajeshwari Nagar' },
+    { label: 'SELECT BRANCH', value: '' },
+    { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
+    { label: 'BANASHANKARI', value: 'BANASHANKARI' },
+    { label: 'REJESHWARI NAGAR', value: 'REJESHWARI NAGAR' },
   ];
-
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleFnameChange = (newValue) => {
-    setFname(newValue);
+  const handleFnameChange = (event) => {
+    setFname(event.target.value);
   };
 
-  const handleLnameChange = (newValue) => {
-    setLname(newValue);
+  const handleLnameChange = (event) => {
+    setLname(event.target.value);
   };
-  const handlePnoneChange = (newValue) => {
-    setPhone(newValue);
+
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
   };
-  const handleEmailChange = (newValue) => {
-    setEmail(newValue);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
+
   const handleSelectChange = (event) => {
     setSelected(event.target.value);
+  };
+  const handleMobileChange = (event) => {
+    setMobile(event.target.value);
+  };
+
+
+  const handleSubjectChange = (event) => {
+    setSubject(event.target.value);
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!fname || !phone || !email || !mobile || !selected) {
+      alert('Please fill out all mandatory fields: First Name, Phone Number, Email, and Branch');
+      return;
+    }
+    try {
+      const data = {
+        templateType: 'reachUs',
+        name: fname + ' ' + lname,
+        emailSubject: 'Reach Us Form Submission', 
+        email: email,
+        phone: phone,
+        branch: selected,
+        subject: subject,
+        message: message,
+        to: 'eman.maharana@gmail.com',
+      };
+
+
+      try {
+        const response = await axios.post('http://localhost:3001/api/send-email', data);
+        if (response.status === 200) {
+          alert('Email sent successfully');
+          handleReset();
+        } else {
+          alert('Failed to send email');
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+        alert('Error sending email');
+      }
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+
+  const handleReset = () => {
+    setFname('');
+    setLname('');
+    setEmail('');
+    setPhone('');
+    setMobile('');
+    setSelected('SELECT YOUR BRANCH');
+    setSubject('');
+    setMessage('');
   };
 
   return (
@@ -42,10 +109,9 @@ export default function ReachUs() {
           <div className="input-row">
             <input className="e-input" type="text" placeholder="FIRST NAME" value={fname} onChange={handleFnameChange} />
             <input className="e-input" type="text" placeholder="LAST NAME" value={lname} onChange={handleLnameChange} />
-
           </div>
           <div className="input-row">
-            <input className="e-input " type="text" placeholder="PHONE NUMBER" value={phone} onChange={handlePnoneChange} />
+            <input className="e-input " type="text" placeholder="PHONE NUMBER" value={phone} onChange={handlePhoneChange} />
             <input className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
           </div>
           <div className="input-row">
@@ -56,17 +122,17 @@ export default function ReachUs() {
                 </option>
               ))}
             </select>
-            <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO."  />
+            <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
             <button className='otp-btn' type="button">Get OTP</button>
           </div>
         </div>
         <div className="input-row">
-          <textarea className="e-input text-area" type="text" placeholder="SUBJECT" />
-          <textarea className="e-input text-area" type="text" placeholder="MESSAGE" />
+          <textarea className="e-input text-area" type="text" placeholder="SUBJECT" value={subject} onChange={handleSubjectChange} />
+          <textarea className="e-input text-area" type="text" placeholder="MESSAGE" value={message} onChange={handleMessageChange} />
         </div>
         <div className="input-row input-btn">
-          <button className='btn' type="submit">Submit</button>
-          <button className='btn' type="button">Reset</button>
+          <button className='btn' type="submit" onClick={handleSubmit}>Submit</button>
+          <button className='btn' type="button" onClick={handleReset}>Reset</button>
         </div>
       </div>
       <div className="frame">
@@ -75,7 +141,5 @@ export default function ReachUs() {
         <img src="/images/frame3.png" alt="frame3" />
       </div>
     </div>
-
   );
 }
-

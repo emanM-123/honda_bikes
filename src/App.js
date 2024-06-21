@@ -6,8 +6,10 @@ import BookNow from "./Components/BookNow";
 import ReachUs from "./Components/ReachUs";
 import RasEw from "./Components/RasEw";
 import Disclaimer from "./Components/Disclaimer";
+import TestRide from "./Components/TestRide";
 import { Header } from "./Components/Header";
 import { Footer } from "./Components/Footer";
+import  ProductEnquiry  from "./Components/ProductEnquiry";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import '../src/Styles/components.css';
 import '../src/Styles/motorcycle.css';
@@ -32,6 +34,8 @@ function App() {
             <Route path='/reach_us' element={<ReachUs />} />
             <Route path='/rsa_ew' element={<RasEw />} />
             <Route path='/disclaimer' element={<Disclaimer />} />
+            <Route path='/test_ride' element={<TestRide />} />
+            <Route path='/product_enquiry' element={<ProductEnquiry />} />
           </Routes>
           <Footer />
         </BrowserRouter>
