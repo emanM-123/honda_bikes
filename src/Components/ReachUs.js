@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
 export default function ReachUs() {
   const [selected, setSelected] = useState('SELECT YOUR BRANCH');
+  const [otp, setOtp] = useState('');
+  const [enteredOtp, setEnteredOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [timerSeconds, setTimerSeconds] = useState(0);
+
+  useEffect(() => {
+    let interval;
+    if (otpSent && !otpVerified && timerSeconds > 0) {
+      interval = setInterval(() => {
+        setTimerSeconds(prevSeconds => prevSeconds - 1);
+      }, 1000);
+    } else if (timerSeconds === 0) {
+      clearInterval(interval);
+      setOtpSent(false);
+    }
+    return () => clearInterval(interval);
+  }, [otpSent, otpVerified, timerSeconds]);
+
+
   const options = [
     { label: 'SELECT BRANCH', value: '' },
     { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
@@ -102,6 +122,34 @@ export default function ReachUs() {
     }
   };
 
+  const handleGetOtp = async () => {
+    if (!validateMobile(mobile)) {
+      alert('Please enter a valid mobile number.');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3001/api/send-sms', { phone: mobile });
+      console.log("responseresponseresponseresponse", response.data.otp)
+      setOtp(response.data.otp);
+      setOtpSent(true);
+      alert('OTP sent successfully on your phone number');
+      setTimerSeconds(60);
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      alert('Error sending OTP');
+    }
+  };
+
+  const handleVerifyOtp = () => {
+    if (enteredOtp === otp) {
+      setOtpVerified(true);
+      alert('OTP verified successfully');
+    } else {
+      alert('Invalid OTP. Please try again.');
+    }
+  };
+
   const handleReset = () => {
     setFname('');
     setLname('');
@@ -129,18 +177,55 @@ export default function ReachUs() {
             <input className="e-input " type="text" placeholder="PHONE NUMBER" value={phone} onChange={handlePhoneChange} />
             <input className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
           </div>
-          <div className="input-row">
-            <select className='s-input' onChange={handleSelectChange} value={selected}>
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
-            <button className='otp-btn' type="button">Get OTP</button>
-          </div>
+          {!otpSent ? (
+            <div className="input-row">
+              <select className="s-input" onChange={handleSelectChange} value={selected}>
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
+              <button className='otp-btn' type="button" onClick={handleGetOtp}>Get OTP</button>
+            </div>
+          ) : (
+            <div className="input-row1">
+              <select className="s-input" onChange={handleSelectChange} value={selected}>
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
+            </div>
+          )}
         </div>
+        {otpSent && !otpVerified && (
+          <div className="">
+            <input
+              className="rsa-otp-input"
+              type="text"
+              placeholder="ENTER OTP"
+              value={enteredOtp}
+              onChange={(e) => setEnteredOtp(e.target.value)}
+            />
+            <button className='rsa-verify-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+          </div>
+        )}
+
+        {otpVerified && (
+          <div className="rsa-verification-success">
+            <p>OTP Verified Successfully!</p>
+          </div>
+        )}
+        {otpSent && !otpVerified && timerSeconds > 0 && (
+          <div className="enq-timer">
+            <p>OTP expires in {timerSeconds} seconds</p>
+          </div>
+        )}
+
         <div className="input-row">
           <textarea className="e-input text-area" type="text" placeholder="SUBJECT" value={subject} onChange={handleSubjectChange} />
           <textarea className="e-input text-area" type="text" placeholder="MESSAGE" value={message} onChange={handleMessageChange} />

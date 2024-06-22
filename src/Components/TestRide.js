@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { validateEmail, validateMobile } from '../Utils/validation';
 
@@ -11,6 +11,26 @@ const TestRide = (selectedBike) => {
         email: '',
         mobile: '',
     });
+
+    const [otp, setOtp] = useState('');
+    const [enteredOtp, setEnteredOtp] = useState('');
+    const [otpSent, setOtpSent] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(false);
+    const [timerSeconds, setTimerSeconds] = useState(0);
+
+    useEffect(() => {
+        let interval;
+        if (otpSent && !otpVerified && timerSeconds > 0) {
+            interval = setInterval(() => {
+                setTimerSeconds(prevSeconds => prevSeconds - 1);
+            }, 1000);
+        } else if (timerSeconds === 0) {
+            clearInterval(interval);
+            setOtpSent(false);
+        }
+        return () => clearInterval(interval);
+    }, [otpSent, otpVerified, timerSeconds]);
+
 
     const handleCheckboxChange = () => {
         setChecked(!checked);
@@ -70,13 +90,13 @@ const TestRide = (selectedBike) => {
             to: 'eman.maharana@gmail.com',
             bikeModel: selectedBike.model,
         };
-        
+
         try {
             const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
-                setFormData({ name: '', email: '', mobile: '' }); 
-                setChecked(false); 
+                setFormData({ name: '', email: '', mobile: '' });
+                setChecked(false);
             } else {
                 alert('Failed to send email');
             }
@@ -84,6 +104,35 @@ const TestRide = (selectedBike) => {
             console.error('Error sending email:', error);
         }
     };
+
+    const handleGetOtp = async () => {
+        if (!validateMobile(formData.phone)) {
+            alert('Please enter a valid mobile number.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.phone });
+            console.log("responseresponseresponseresponse", response.data.otp)
+            setOtp(response.data.otp);
+            setOtpSent(true);
+            alert('OTP sent successfully on your phone number');
+            setTimerSeconds(60);
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            alert('Error sending OTP');
+        }
+    };
+
+    const handleVerifyOtp = () => {
+        if (enteredOtp === otp) {
+            setOtpVerified(true);
+            alert('OTP verified successfully');
+        } else {
+            alert('Invalid OTP. Please try again.');
+        }
+    };
+
 
     return (
         <div className="slideshow-container">
@@ -119,17 +168,54 @@ const TestRide = (selectedBike) => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className='ride-mobile-div'>
-                        <input
-                            className="ride-mob-input"
-                            type="text"
-                            placeholder="ENTER MOBILE NO."
-                            name="mobile"
-                            value={formData.mobile}
-                            onChange={handleInputChange}
-                        />
-                        <button className='ride-otp-btn1' type="button">Get OTP</button>
-                    </div>
+                    {!otpSent ? (
+                        <div className='ride-mobile-div'>
+                            <input
+                                className="ride-mob-input"
+                                type="text"
+                                placeholder="ENTER MOBILE NO."
+                                name="mobile"
+                                value={formData.mobile}
+                                onChange={handleInputChange}
+                            />
+                            <button className='ride-otp-btn1' type="button" onClick={handleGetOtp}>Get OTP</button>
+                        </div>
+                    ) : (
+                        <div className='ride-mobile-div1'>
+                            <input
+                                className="ride-mob-input"
+                                type="text"
+                                placeholder="ENTER MOBILE NO."
+                                name="mobile"
+                                value={formData.mobile}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                    )}
+
+                    {otpSent && !otpVerified && (
+                        <div className="ride-mobile-div">
+                            <input
+                                className="ride-mob-input"
+                                type="text"
+                                placeholder="ENTER OTP"
+                                value={enteredOtp}
+                                onChange={(e) => setEnteredOtp(e.target.value)}
+                            />
+                            <button className='ride-otp-btn1' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+                        </div>
+                    )}
+
+                    {otpVerified && (
+                        <div className="rsa-verification-success">
+                            <p>OTP Verified Successfully!</p>
+                        </div>
+                    )}
+                    {otpSent && !otpVerified && timerSeconds > 0 && (
+                        <div className="enq-timer">
+                            <p>OTP expires in {timerSeconds} seconds</p>
+                        </div>
+                    )}
                     <div>
                         <input
                             className='ride-add-input'

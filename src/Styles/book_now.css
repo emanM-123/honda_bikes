@@ -307,7 +307,11 @@
 }
 
 .enq-mobile-div {
-    margin-right: 40px;
+    margin-right: 48px;
+}
+
+.enq-mobile-div1 {
+    margin-right: 148px;
 }
 
 .enq-mob-input {
@@ -565,6 +569,10 @@
 
 .ride-mobile-div {
     margin: 10px 460px 10px 0;
+}
+
+.ride-mobile-div1 {
+    margin: 10px 610px 10px 0px;
 }
 
 .ride-mob-input {

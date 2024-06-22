@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
@@ -18,6 +18,25 @@ const RsaEw = () => {
         phoneNumber: '',
         description: '',
     });
+    const [otp, setOtp] = useState('');
+    const [enteredOtp, setEnteredOtp] = useState('');
+    const [otpSent, setOtpSent] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(false);
+    const [timerSeconds, setTimerSeconds] = useState(0);
+
+    useEffect(() => {
+        let interval;
+        if (otpSent && !otpVerified && timerSeconds > 0) {
+            interval = setInterval(() => {
+                setTimerSeconds(prevSeconds => prevSeconds - 1);
+            }, 1000);
+        } else if (timerSeconds === 0) {
+            clearInterval(interval);
+            setOtpSent(false);
+        }
+        return () => clearInterval(interval);
+    }, [otpSent, otpVerified, timerSeconds]);
+
 
     const branches = [
         { label: 'SELECT BRANCH', value: '' },
@@ -50,6 +69,34 @@ const RsaEw = () => {
             ...prevState,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleGetOtp = async () => {
+        if (!validateMobile(formData.phone)) {
+            alert('Please enter a valid mobile number.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.phone });
+            console.log("responseresponseresponseresponse", response.data.otp)
+            setOtp(response.data.otp);
+            setOtpSent(true);
+            alert('OTP sent successfully on your phone number');
+            setTimerSeconds(60);
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            alert('Error sending OTP');
+        }
+    };
+
+    const handleVerifyOtp = () => {
+        if (enteredOtp === otp) {
+            setOtpVerified(true);
+            alert('OTP verified successfully');
+        } else {
+            alert('Invalid OTP. Please try again.');
+        }
     };
 
     const handleSubmit = async (event) => {
@@ -159,8 +206,34 @@ const RsaEw = () => {
                 <div className="rsa-row3">
                     <input className="rsa-email-input" type="email" placeholder="ENTER EMAIL" name="email" onChange={handleInputChange} value={formData.email} />
                     <input className="rsa-mob-input" type="text" placeholder="ENTER MOBILE NO." name="phone" onChange={handleInputChange} value={formData.phone} />
-                    <button className='rsa-otp-btn' type="button">Get OTP</button>
+                    {!otpSent && (
+                        <button className='rsa-otp-btn' type="button" onClick={handleGetOtp}>Get OTP</button>
+                    )}
                 </div>
+                {otpSent && !otpVerified && (
+                    <div className="rsa-row8">
+                        <input
+                            className="rsa-otp-input"
+                            type="text"
+                            placeholder="ENTER OTP"
+                            value={enteredOtp}
+                            onChange={(e) => setEnteredOtp(e.target.value)}
+                        />
+                        <button className='rsa-verify-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+                    </div>
+                )}
+
+                {otpVerified && (
+                    <div className="rsa-verification-success">
+                        <p>OTP Verified Successfully!</p>
+                    </div>
+                )}
+                {otpSent && !otpVerified && timerSeconds > 0 && (
+                    <div className="enq-timer">
+                        <p>OTP expires in {timerSeconds} seconds</p>
+                    </div>
+                )}
+
                 <div className="rsa-row4">
                     <input className="rsa-std-input" type="email" placeholder="ENTER STD CODE" name="stdCode" onChange={handleInputChange} value={formData.stdCode} />
                     <input className="rsa-phone-input" type="email" placeholder="ENTER PHONE NO." name="phoneNumber" onChange={handleInputChange} value={formData.phoneNumber} />
