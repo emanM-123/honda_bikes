@@ -98,7 +98,7 @@ const ProductEnquiry = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);

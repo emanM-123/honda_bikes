@@ -106,13 +106,13 @@ const TestRide = (selectedBike) => {
     };
 
     const handleGetOtp = async () => {
-        if (!validateMobile(formData.phone)) {
+        if (!validateMobile(formData.mobile)) {
             alert('Please enter a valid mobile number.');
             return;
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.phone });
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);

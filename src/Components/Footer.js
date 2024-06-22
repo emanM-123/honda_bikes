@@ -23,9 +23,9 @@ export function Footer() {
         </ul>
       </div>
       <div className="social-links">
-        <a href="https://www.facebook.com/HondaBigWingIndia"><img src="/images/facebook.png" alt="Facebook" /></a>
-        <a href="https://www.instagram.com/bigwingindia/"><img src="/images/instagram.png" alt="Instagram" /></a>
-        <a href="https://www.youtube.com/channel/UC1x_DVJQT3DMbmnavnFvStg?view_as=subscriber"><img src="/images/youtube.png" alt="YouTube" /></a>
+        <a href="https://www.facebook.com/HondaBigWingIndia"><img src="/images/social_fb.png" alt="Facebook" /></a>
+        <a href="https://www.instagram.com/bigwingindia/"><img src="/images/social_insta.png" alt="Instagram" /></a>
+        <a href="https://www.youtube.com/channel/UC1x_DVJQT3DMbmnavnFvStg?view_as=subscriber"><img src="/images/social_yt.png" alt="YouTube" /></a>
       </div>
     </div>
 

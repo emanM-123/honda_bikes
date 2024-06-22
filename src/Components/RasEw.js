@@ -78,7 +78,7 @@ const RsaEw = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.phone });
+            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.phone });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
@@ -211,7 +211,7 @@ const RsaEw = () => {
                     )}
                 </div>
                 {otpSent && !otpVerified && (
-                    <div className="rsa-row8">
+                    <div className="rsa-row3">
                         <input
                             className="rsa-otp-input"
                             type="text"
@@ -219,7 +219,7 @@ const RsaEw = () => {
                             value={enteredOtp}
                             onChange={(e) => setEnteredOtp(e.target.value)}
                         />
-                        <button className='rsa-verify-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+                        <button className='rsa-otp-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
                     </div>
                 )}
 

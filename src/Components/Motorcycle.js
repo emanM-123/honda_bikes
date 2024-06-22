@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { bikeSDetails } from "../data/bannerImages";
 import { Link } from "react-router-dom";
 export default function Motorcycle() {
-  const imagesPerScreen = 3;
+  const imagesPerScreen = 1;
   const [topStartIndex, setTopStartIndex] = useState(0);
   const [bottomStartIndex, setBottomStartIndex] = useState(0);
 
@@ -28,15 +28,23 @@ export default function Motorcycle() {
         ))}
       </div>
       <div className='container responsive-slider'>
-          {bikeSDetails.slice(topStartIndex, topStartIndex + imagesPerScreen).map((bike, index) => (
+        {/* {bikeSDetails.slice(topStartIndex, topStartIndex + imagesPerScreen).map((bike, index) => (
             <div key={index} className="box">
               <Link to={ `/book_now?id=${bike.id}`}>
                 <img src={bike.image} alt={bike.modelName} />
               </Link>
               <span>{bike.modelName}</span>
             </div>
-          ))}
-        <div className='res-slide-controls'>
+          ))} */}
+        {bikeSDetails.map((bike, index) => (
+          <div key={index} className="box">
+            <Link to={`/book_now?id=${bike.id}`}>
+              <img src={bike.image} alt={bike.modelName} />
+            </Link>
+            <span>{bike.modelName}</span>
+          </div>
+        ))}
+        {/* <div className='res-slide-controls'>
           {bikeSDetails.map((_, index) => (
             <span
               key={index}
@@ -44,7 +52,7 @@ export default function Motorcycle() {
               onClick={() => handleTopSlideChange(index)}
             ></span>
           )).slice(0, 3)}
-        </div>
+        </div> */}
       </div>
       {/* <div className='dream-honda'>
         <p>Dream Honda</p>

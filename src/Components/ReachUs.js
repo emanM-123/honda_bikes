@@ -129,7 +129,7 @@ export default function ReachUs() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/api/send-sms', { phone: mobile });
+      const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: mobile });
       console.log("responseresponseresponseresponse", response.data.otp)
       setOtp(response.data.otp);
       setOtpSent(true);
@@ -203,15 +203,15 @@ export default function ReachUs() {
           )}
         </div>
         {otpSent && !otpVerified && (
-          <div className="">
+          <div className="input-row1">
             <input
-              className="rsa-otp-input"
+              className="s-input"
               type="text"
               placeholder="ENTER OTP"
               value={enteredOtp}
               onChange={(e) => setEnteredOtp(e.target.value)}
             />
-            <button className='rsa-verify-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+            <button className='otp-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
           </div>
         )}
 

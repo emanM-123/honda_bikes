@@ -436,7 +436,7 @@
   margin-top: 10px;
 }
 
-.rsa-checkbox-input{
+.rsa-checkbox-input {
   border: 2px;
 }
 
@@ -456,13 +456,13 @@
   margin-right: 5px;
   position: relative;
   background-color: black;
-  border-color:white;
+  border-color: white;
 }
 
-.rsa-checkbox-input{
+.rsa-checkbox-input {
   width: 16px;
   height: 16px;
-  
+
 }
 
 .rsa-checkbox-text {
@@ -496,7 +496,7 @@
   }
 
   .rsa-name-input {
-    width: 40%;
+    width: 265px;
     font-size: 12px;
     margin-left: 0;
     margin-right: 5px;
@@ -505,6 +505,7 @@
 
   .rsa-email-input {
     width: 88%;
+    margin-top: 15px;
     font-size: 12px;
   }
 
@@ -519,20 +520,35 @@
     font-size: 12px;
   }
 
+  .rsa-otp-input {
+    width: 55%;
+    margin-top: 15px;
+  }
+
   .rsa-std-input {
     width: 88%;
     font-size: 12px;
+    margin-top: 15px;
   }
 
   .rsa-phone-input {
     width: 88%;
     font-size: 12px;
     margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .rsa-row6 {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+    flex-direction: column;
   }
 
   .rsa-row7 {
     display: flex;
     justify-content: flex-end;
+    margin-top: 20px;
   }
 
   .rsa-btn {
@@ -542,8 +558,9 @@
     border: none;
     cursor: pointer;
     height: 35px;
-    width: 100px;
-    margin: 10px;
+    width: 70px;
+    margin-right: 50px;
+    margin-bottom: 50px;
   }
 
   .rsa-desc-input {
@@ -556,13 +573,7 @@
   }
 
   .rsa-checkbox-text {
-    font-size: 8px;
+    font-size: 13px;
   }
 
-  .rsa-btn {
-    width: 70px;
-    padding: 0;
-    margin: 0;
-    margin-right: 20px;
-  }
 }

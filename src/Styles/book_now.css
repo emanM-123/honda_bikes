@@ -96,7 +96,8 @@
 
 @media screen and (max-width:768px) {
     .current-image p {
-        font-size: 40px;
+        font-size: 35px;
+        margin-top: 10px;
     }
 
     .varient-name {
@@ -368,6 +369,7 @@
 
     .enquiry-container .image p {
         font-size: 20px;
+        margin-top: 2px;
         font-weight: bolder;
         margin-left: 20px;
     }
@@ -400,7 +402,7 @@
     }
 
     .enquiry-container .image img {
-        width: 50%;
+        width: 60%;
         margin-left: 0;
     }
 
@@ -410,7 +412,7 @@
     }
 
     .enquiry-container .image span {
-        font-size: 8px;
+        font-size: 12px;
     }
 
     .enq-form {
@@ -419,13 +421,13 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
     .enquiry-container .image {
         width: 70%;
     }
 
     .enquiry-container .enq-form {
-        width: 70%;
+        width: 85%;
     }
 
     .enq-title-input {
@@ -433,19 +435,23 @@
     }
 
     .enq-name-input {
-        width: 180px;
+        width: 240px;
+        height: 25px;
     }
 
     .enq-email-input {
-        width: 280px;
+        height: 25px;
+        width: 340px;
     }
 
     .enq-mob-input {
-        width: 140px;
+        width: 200px;
+        height: 25px;
     }
 
     .checkbox-label {
-        margin-left: 50px;
+        margin-left: 15px;
+    
     }
 
     .enq-input-btn1 {
@@ -463,7 +469,7 @@
 
 }
 
-.product-enquiry-checkbox-label{
+.product-enquiry-checkbox-label {
     margin-left: -650px;
     margin-top: 20px;
 }
@@ -592,7 +598,7 @@
     cursor: pointer;
 }
 
-.ride-add-input{
+.ride-add-input {
     width: 440px;
     padding: 8px;
     height: 20px;
@@ -632,7 +638,7 @@
 }
 
 .ride-checkbox-text {
-    margin-left: 5px;
+    margin-left: -25px;
 }
 
 
@@ -663,10 +669,10 @@
 }
 
 @media screen and (max-width:960px) {
-    .product-enquiry-checkbox-label{
+    .product-enquiry-checkbox-label {
         margin-left: -450px;
     }
-  
+
     .ride-form {
         margin-top: 10px;
     }
@@ -684,7 +690,11 @@
     }
 
     .ride-mobile-div {
-        margin: 10px 275px 10px 0;
+        margin: 10px 460px 10px 0;
+    }
+
+    .ride-mobile-div1 {
+        margin: 10px 460px 10px 0;
     }
 
     .ride-mob-input {
@@ -719,15 +729,18 @@
 }
 
 @media screen and (max-width:768px) {
-    .product-enquiry-checkbox-label{
-        margin-left: -70px;
+    .product-enquiry-checkbox-label {
+        margin-left: -50px;
+        margin-bottom: 20px;
     }
-    .ride-add-input{
+
+    .ride-add-input {
         width: 290px;
         padding: 8px;
         margin: 5px;
         height: 20px;
     }
+
     .ride-form {
         margin-top: 80px;
     }
@@ -744,9 +757,13 @@
     .ride-mobile-div {
         margin: 8px 100px 0 0;
     }
+    .ride-mobile-div1 {
+        margin: 8px 100px 0 0;
+    }
 
     .ride-otp-btn1 {
         width: 90px;
+        margin-bottom: 10px;
     }
 
     .ride-add-select {
@@ -790,6 +807,7 @@
 
     .ride-name-input {
         width: 200px;
+        margin-bottom: 10px;
     }
 
     .ride-email-input {
@@ -797,15 +815,21 @@
     }
 
     .ride-mob-input {
-        width: 178px;
+        width: 188px;
     }
 
     .ride-mobile-div {
         margin: 8px 15px 0 0;
     }
 
+    .ride-mobile-div1 {
+        margin: 8px 15px 0 0;
+    }
+
     .ride-add-select {
-        width: 300px;
+        width: 310px;
+        margin-right: 0px;
+        margin-top: 10px;
     }
 
     .ride-dealer-select {
@@ -813,7 +837,7 @@
     }
 
     .ride-checkbox-label {
-        margin-right: 60px;
+        margin-right: 40px;
     }
 
     .ride-input-btn1 {
