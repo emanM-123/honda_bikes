@@ -1,16 +1,17 @@
-
 import React, { useState, useEffect } from 'react';
 
 const GallerySlide = ({ images }) => {
     const [startIndex, setStartIndex] = useState(0);
-    const [imagesPerScreen, setImagesPerScreen] = useState(3);
+    const [imagesPerScreen, setImagesPerScreen] = useState(4);
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 864) {
+            if (window.innerWidth <= 670) {
+                setImagesPerScreen(1);
+            } else if (window.innerWidth <= 864) {
                 setImagesPerScreen(3);
             } else {
-                setImagesPerScreen(4);
+                setImagesPerScreen(3);
             }
         };
         handleResize();
@@ -30,7 +31,7 @@ const GallerySlide = ({ images }) => {
 
     const getVisibleImages = () => {
         let visibleImages = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < imagesPerScreen; i++) {
             visibleImages.push(images[(startIndex + i) % images.length]);
         }
         return visibleImages;
@@ -40,17 +41,13 @@ const GallerySlide = ({ images }) => {
         <div className="slideshow-container">
             <p className="gallery-title">GALLERY</p>
             <div className="gallery-wrapper">
-                <div className="scroll-buttons gprev" onClick={scrollLeft}>
-                    &lt;
-                </div>
+                <div className="scroll-buttons gprev" onClick={scrollLeft}></div>
                 {getVisibleImages().map((image, index) => (
                     <div key={startIndex + index} className="gallery-slide">
                         <img src={image} className="slide-img" alt={`Gallery Image ${startIndex + index}`} />
                     </div>
                 ))}
-                <div className="scroll-buttons gnext" onClick={scrollRight}>
-                    &gt;
-                </div>
+                <div className="scroll-buttons gnext" onClick={scrollRight}></div>
             </div>
         </div>
     );

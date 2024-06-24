@@ -638,7 +638,7 @@
 }
 
 .ride-checkbox-text {
-    margin-left: -25px;
+    margin-left: 5px;
 }
 
 
@@ -732,6 +732,10 @@
     .product-enquiry-checkbox-label {
         margin-left: -50px;
         margin-bottom: 20px;
+    }
+
+    .ride-checkbox-text {
+        margin-left: -25px;
     }
 
     .ride-add-input {

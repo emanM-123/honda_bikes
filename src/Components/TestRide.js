@@ -32,7 +32,7 @@ const TestRide = (selectedBike) => {
     }, [otpSent, otpVerified, timerSeconds]);
 
 
-    const handleCheckboxChange = () => {
+    const handleCheckboxChange1 = () => {
         setChecked(!checked);
     };
 
@@ -235,12 +235,12 @@ const TestRide = (selectedBike) => {
                             ))}
                         </select>
                     </div>
-                    <label htmlFor="terms" className="ride-checkbox-label">
+                    <label htmlFor="terms2" className="ride-checkbox-label">
                         <input
                             type="checkbox"
-                            id="terms"
+                            id="terms2"
                             checked={checked}
-                            onChange={handleCheckboxChange}
+                            onChange={handleCheckboxChange1}
                             className="ride-checkbox-input"
                         />
                         <span className="ride-checkbox-custom"></span>

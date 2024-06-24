@@ -50,11 +50,11 @@
 }
 
 .header__icon a {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .header__icon img {
-  width: 25px;
+  width: 20px;
 }
 
 @media screen and (max-width:1030px) {
@@ -328,10 +328,13 @@
 @media only screen and (max-width: 980px) {
   .current-slide p {
     font-size: 50px;
+    margin-top: -10px;
   }
 
   .current-slide span {
     font-size: 24px;
+    margin-right: 50px;
+
   }
 }
 
@@ -439,14 +442,35 @@
 
 @media screen and (max-width: 767px) {
   .gallery-slide {
-    flex: 0 0 calc(33.33% - 20px);
+    flex: 0 0 calc(30% - 20px);
+    margin: 0 20px;
   }
 
   .scroll-buttons {
-    position: absolute;
+    top: 75%;
+    width: 25px;
+    height: 25px;
+    display: calc(-135deg);
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+}
+
+@media screen and (max-width: 670px) {
+  .gallery-wrapper {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    margin: 20px 0;
+  }
+
+  .gallery-slide {
+    flex: 0 0 calc(70% - 20px);
+    margin: 0 20px;
+  }
+
+  .scroll-buttons {
     top: 65%;
-    color: rgb(136 134 134 / 79%);
-    font-size: 24px;
     width: 25px;
     height: 25px;
     display: calc(-135deg);
@@ -461,17 +485,23 @@
     object-fit: cover;
   }
 
-  .gallery-wrapper {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    margin: 50px 10px;
-    justify-content: center;
-    height: 100px;
+  .gprev {
+    border-bottom: 6px solid;
+    border-left: 6px solid;
+    transform: rotate(45deg);
+    left: 20px
   }
-
-
+  
+  
+  .gnext {
+    border-bottom: 6px solid;
+    border-left: 6px solid;
+    transform: rotate(-135deg);
+    right: 20px
+  }
 }
+
+
 
 
 

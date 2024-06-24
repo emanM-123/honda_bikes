@@ -209,8 +209,8 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                         </div>
                     )}
 
-                    <div htmlFor="terms" className="checkbox-label">
-                        <label htmlFor="terms" className="checkbox-label">
+                    <div htmlFor="terms1" className="checkbox-label">
+                        <label htmlFor="terms1" className="checkbox-label">
                             <input
                                 type="checkbox"
                                 id="terms"
