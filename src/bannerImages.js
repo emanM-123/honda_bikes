@@ -1,8 +1,8 @@
 const bannerImages = [
-    "/images/banner.jpg",
-    "/images/banner1.jpg",
+    "/images/cb350rs-campaign-banner_new9_LE_auto_x2.jpg",
+    "/images/cb350_web_banner_new6_LE_auto_x2.jpg",
     // "/images/CB350RS_desk_banner_dev3_LE_auto_custom.jpg",
-    "/images/banner2.jpg"
+    "/images/cb350_desk_homebanner_dev7.jpg"
 ];
 
 

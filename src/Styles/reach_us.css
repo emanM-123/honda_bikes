@@ -496,7 +496,7 @@
   }
 
   .rsa-name-input {
-    width: 265px;
+    width: 88%;
     font-size: 12px;
     margin-left: 0;
     margin-right: 5px;
@@ -577,3 +577,4 @@
   }
 
 }
+

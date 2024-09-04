@@ -42,7 +42,7 @@ const RsaEw = () => {
         { label: 'SELECT BRANCH', value: '' },
         { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
         { label: 'BANASHANKARI', value: 'BANASHANKARI' },
-        { label: 'REJESHWARI NAGAR', value: 'REJESHWARI NAGAR' },
+        { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
     ];
 
     const modelOptions = [
@@ -76,7 +76,7 @@ const RsaEw = () => {
             alert('Please enter a valid mobile number.');
             return;
         }
-
+        
         try {
             const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.phone });
             console.log("responseresponseresponseresponse", response.data.otp)

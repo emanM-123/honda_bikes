@@ -28,7 +28,7 @@ export default function ReachUs() {
     { label: 'SELECT BRANCH', value: '' },
     { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
     { label: 'BANASHANKARI', value: 'BANASHANKARI' },
-    { label: 'REJESHWARI NAGAR', value: 'REJESHWARI NAGAR' },
+    { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
   ];
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
@@ -129,8 +129,13 @@ export default function ReachUs() {
     }
 
     try {
+      console.log("====================", mobile);
+      
+      // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: mobile });
+
+
       const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: mobile });
-      console.log("responseresponseresponseresponse", response.data.otp)
+      console.log("responseresponseresponseresponse", response.data)
       setOtp(response.data.otp);
       setOtpSent(true);
       alert('OTP sent successfully on your phone number');
