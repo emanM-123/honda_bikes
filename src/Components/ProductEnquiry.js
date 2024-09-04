@@ -69,15 +69,17 @@ const ProductEnquiry = () => {
             ...formData,
             title: selected,
             branch: selectedBranch,
-            renewInsuranceChecked: true,
-            extendedWarrantyChecked: false,
             templateType: 'productEnquiry',
             emailSubject: 'Product Enquiry',
-            to: "eman.maharana@gmail.com"
+            to: "sales@bigwingbengaluru.com",
+            forEnquiry: 'Yes',
+            phone: formData.mobile,
         };
 
         try {
-            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
+            // const response = await axios.post('http://localhost:3001/api/send-email', data);
+            
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
                 handleReset();

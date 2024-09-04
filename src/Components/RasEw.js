@@ -120,12 +120,13 @@ const RsaEw = () => {
             ...formData,
             templateType: 'rsaWe',
             emailSubject: 'RSA WE',
-            to: 'eman.maharana@gmail.com',
+            to: 'sales@bigwingbengaluru.com',
         };
 
 
         try {
-            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', rsaWeData);
+            // const response = await axios.post('http://localhost:3001/api/send-email', rsaWeData);
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', rsaWeData);
             console.log('Email sent successfully:', response.data);
             alert('Email sent successfully');
             setFormData({

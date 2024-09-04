@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { validateEmail, validateMobile } from '../Utils/validation';
 
-const TestRide = (selectedBike) => {
+const TestRide = (selectedBike) => {        
     const [selected, setSelected] = useState('TITLE');
     const [checked, setChecked] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState('');
@@ -84,15 +84,20 @@ const TestRide = (selectedBike) => {
             emailSubject: 'Test Ride Request',
             name: selected + ' ' + formData.name,
             email: formData.email,
-            mobile: formData.mobile,
+            phone: formData.mobile,
             branch: selectedBranch,
             city: 'BANGALORE',
-            to: 'eman.maharana@gmail.com',
-            bikeModel: selectedBike.model,
+            // to: 'eman.maharana@gmail.com',
+            to: "sales@bigwingbengaluru.com",
+
+            selectedModel: selectedBike.selectedBike.modelName,
+            forTestRide: 'Yes',
         };
 
         try {
-            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-email', data);
+            // const response = await axios.post('http://localhost:3001/api/send-email', data);
+
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
                 alert('Email sent successfully');
                 setFormData({ name: '', email: '', mobile: '' });
