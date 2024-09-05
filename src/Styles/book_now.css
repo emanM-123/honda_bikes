@@ -523,8 +523,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 80px;
     z-index: 1;
+}
+
+.enq-timer p{
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .pro-enq-form {
@@ -533,7 +538,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 70px;
     z-index: 1;
 }
 
@@ -574,11 +579,11 @@
 }
 
 .ride-mobile-div {
-    margin: 10px 460px 10px 0;
+    margin: 2px 460px 2px 0;
 }
 
 .ride-mobile-div1 {
-    margin: 10px 610px 10px 0px;
+    margin: 2px 610px 2px 0px;
 }
 
 .ride-mob-input {

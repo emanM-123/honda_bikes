@@ -3,6 +3,21 @@ import React, { useState, useEffect } from "react";
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
+// const Notification = ({ message }) => {
+//     useEffect(() => {
+//         const timer = setTimeout(() => {
+//             message.setNotification(null);
+//         }, 5000);
+//         return () => clearTimeout(timer);
+//     }, [message]);
+
+//     return (
+//         <div style={styles.notificationContainer}>
+//             <p style={styles.notificationText}>{message.text}</p>
+//         </div>
+//     );
+// };
+
 const RsaEw = () => {
     const [formData, setFormData] = useState({
         selected: 'TITLE',
@@ -78,12 +93,12 @@ const RsaEw = () => {
         }
         
         try {
-            const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.phone });
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.phone });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
             alert('OTP sent successfully on your phone number');
-            setTimerSeconds(60);
+            setTimerSeconds(30);
         } catch (error) {
             console.error('Error sending OTP:', error);
             alert('Error sending OTP');
@@ -118,17 +133,25 @@ const RsaEw = () => {
 
         const rsaWeData = {
             ...formData,
+            // to: 'eman.maharana@gmail.com',
+            to: "sales@bigwingbengaluru.com",
             templateType: 'rsaWe',
             emailSubject: 'RSA WE',
-            to: 'sales@bigwingbengaluru.com',
+            name: formData.selected + ' ' + formData.fname + ' ' + formData.lname,
+            emailSubject: 'Reach Us Form Submission',
+            email: formData.email,
+            phone: formData.phone,
+            branch: formData.selectedBranch,
+            subject: formData.description,
+            selectedModel: formData.selectedModel,
         };
 
 
         try {
             // const response = await axios.post('http://localhost:3001/api/send-email', rsaWeData);
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', rsaWeData);
-            console.log('Email sent successfully:', response.data);
-            alert('Email sent successfully');
+            
+            alert('Form successfully submitted');
             setFormData({
                 selected: 'TITLE',
                 selectedBranch: '',
@@ -290,3 +313,20 @@ const RsaEw = () => {
 };
 
 export default RsaEw;
+const styles = {
+    notificationContainer: {
+        position: 'fixed',
+        top: '100px',
+        right: '0px',
+        backgroundColor: 'green',
+        color: 'white',
+        padding: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+    },
+    notificationText: {
+        margin: 0,
+    },
+};

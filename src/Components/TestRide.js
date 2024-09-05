@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { validateEmail, validateMobile } from '../Utils/validation';
 
+
+// const Notification = ({ message }) => {
+//     useEffect(() => {
+//         const timer = setTimeout(() => {
+//             message.setNotification(null);
+//         }, 5000);
+//         return () => clearTimeout(timer);
+//     }, [message]);
+
+//     return (
+//         <div style={styles.notificationContainer}>
+//             <p style={styles.notificationText}>{message.text}</p>
+//         </div>
+//     );
+// };
 const TestRide = (selectedBike) => {        
     const [selected, setSelected] = useState('TITLE');
     const [checked, setChecked] = useState(false);
@@ -99,7 +114,7 @@ const TestRide = (selectedBike) => {
 
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
-                alert('Email sent successfully');
+                alert('Form successfully submitted');
                 setFormData({ name: '', email: '', mobile: '' });
                 setChecked(false);
             } else {
@@ -116,15 +131,15 @@ const TestRide = (selectedBike) => {
             return;
         }
 
-        try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
+        try {            
+            // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
 
-            // const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.mobile });
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
             alert('OTP sent successfully on your phone number');
-            setTimerSeconds(60);
+            setTimerSeconds(30);
         } catch (error) {
             console.error('Error sending OTP:', error);
             alert('Error sending OTP');
@@ -264,3 +279,21 @@ const TestRide = (selectedBike) => {
 };
 
 export default TestRide;
+
+const styles = {
+    notificationContainer: {
+        position: 'fixed',
+        top: '100px',
+        right: '0px',
+        backgroundColor: 'green',
+        color: 'white',
+        padding: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+    },
+    notificationText: {
+        margin: 0,
+    },
+};

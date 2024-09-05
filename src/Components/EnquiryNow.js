@@ -3,6 +3,21 @@ import '../Styles/book_now.css';
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
+
+// const Notification = ({ message }) => {
+//     useEffect(() => {
+//         const timer = setTimeout(() => {
+//             message.setNotification(null);
+//         }, 5000);
+//         return () => clearTimeout(timer);
+//     }, [message]);
+
+//     return (
+//         <div style={styles.notificationContainer}>
+//             <p style={styles.notificationText}>{message.text}</p>
+//         </div>
+//     );
+// };
 const EnquiryNow = ({ selectedVariant, selectedBike }) => {
     console.log("selectedBikeselectedBike", selectedBike);
     const [selected, setSelected] = useState('TITLE');
@@ -68,7 +83,8 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
 
         const data = {
             templateType: 'enquiryNow',
-            to: 'sales@bigwingbengaluru.com',
+            // to: 'eman.maharana@gmail.com',
+            to: "sales@bigwingbengaluru.com",
             emailSubject: 'Enquiry Now',
             name: selected + ' ' + formData.name,
             email: formData.email,
@@ -82,7 +98,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
 
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
-                alert('Email sent successfully');
+                alert('Form successfully submitted');
                 setFormData({ name: '', email: '', mobile: '' });
                 setChecked(false);
             } else {
@@ -101,14 +117,14 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
+            // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
             
-            // const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.mobile });
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
             alert('OTP sent successfully on your phone number');
-            setTimerSeconds(60); 
+            setTimerSeconds(30); 
         } catch (error) {
             console.error('Error sending OTP:', error);
             alert('Error sending OTP');
@@ -239,3 +255,22 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
 };
 
 export default EnquiryNow;
+
+
+const styles = {
+    notificationContainer: {
+        position: 'fixed',
+        top: '100px',
+        right: '0px',
+        backgroundColor: 'green',
+        color: 'white',
+        padding: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+    },
+    notificationText: {
+        margin: 0,
+    },
+};

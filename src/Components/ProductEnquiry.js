@@ -3,7 +3,24 @@ import React, { useState, useEffect } from 'react';
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
+// const Notification = ({ message }) => {
+//     useEffect(() => {
+//         const timer = setTimeout(() => {
+//             message.setNotification(null);
+//         }, 5000);
+//         return () => clearTimeout(timer);
+//     }, [message]);
+
+//     return (
+//         <div style={styles.notificationContainer}>
+//             <p style={styles.notificationText}>{message.text}</p>
+//         </div>
+//     );
+// };
 const ProductEnquiry = () => {
+
+
+    const [notification, setNotification] = useState(null);
     const [selected, setSelected] = useState('TITLE');
     const [selectedBranch, setSelectedBranch] = useState('');
     const [checked, setChecked] = useState(false);
@@ -71,18 +88,21 @@ const ProductEnquiry = () => {
             branch: selectedBranch,
             templateType: 'productEnquiry',
             emailSubject: 'Product Enquiry',
-            to: "sales@bigwingbengaluru.com",
+            to: 'eman.maharana@gmail.com',
+            // to: "sales@bigwingbengaluru.com",
             forEnquiry: 'Yes',
             phone: formData.mobile,
         };
 
         try {
             // const response = await axios.post('http://localhost:3001/api/send-email', data);
-            
+
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
-                alert('Email sent successfully');
                 handleReset();
+                alert('Form successfully submitted');
+                // setNotification({ text: 'Form successfully submitted', setNotification });
+
             } else {
                 alert('Failed to send email');
             }
@@ -100,14 +120,14 @@ const ProductEnquiry = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
+            // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
 
-            // const response = await axios.post('https://honda-app-server-wp4bffpqkq-el.a.run.app/api/send-sms', { phone: formData.mobile });
+            const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
             alert('OTP sent successfully on your phone number');
-            setTimerSeconds(60);
+            setTimerSeconds(30);
         } catch (error) {
             console.error('Error sending OTP:', error);
             alert('Error sending OTP');
@@ -158,6 +178,12 @@ const ProductEnquiry = () => {
                     <span>PRODUCT ENQUIRY</span>
                 </div>
                 <div className="pro-enq-form">
+                    {/* {notification && (
+                        <Notification
+                            message={notification}
+                            onClose={() => setNotification(null)}
+                        />
+                    )} */}
                     <form onSubmit={handleSubmit}>
                         <div>
                             <select className='ride-title-input' onChange={handleSelectChange} value={selected}>
@@ -274,3 +300,20 @@ const ProductEnquiry = () => {
 };
 
 export default ProductEnquiry;
+const styles = {
+    notificationContainer: {
+        position: 'fixed',
+        top: '100px',
+        right: '0px',
+        backgroundColor: 'green',
+        color: 'white',
+        padding: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+    },
+    notificationText: {
+        margin: 0,
+    },
+};
