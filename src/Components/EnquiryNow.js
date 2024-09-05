@@ -86,7 +86,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
             // to: 'eman.maharana@gmail.com',
             to: "sales@bigwingbengaluru.com",
             emailSubject: 'Enquiry Now',
-            name: selected + ' ' + formData.name,
+            name: formData.name,
             email: formData.email,
             selectedModel: selectedBike.modelName,
             forEnquiry: 'Yes',
@@ -156,11 +156,11 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                 </div>
                 <form className="enq-form" onSubmit={handleSubmit}>
                     <div>
-                        <select className='enq-title-input' onChange={handleSelectChange} value={selected}>
+                        {/* <select className='enq-title-input' onChange={handleSelectChange} value={selected}>
                             <option value="">TITLE</option>
                             <option value="Mr.">Mr.</option>
                             <option value="Mrs.">Mrs.</option>
-                        </select>
+                        </select> */}
                         <input
                             className="enq-name-input"
                             type="text"
@@ -168,6 +168,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     <div>
@@ -178,6 +179,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     {!otpSent ? (
@@ -189,6 +191,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                                 name="mobile"
                                 value={formData.mobile}
                                 onChange={handleInputChange}
+                                required
                             />
                             <button className='enq-otp-btn1' type="button" onClick={handleGetOtp}>Get OTP</button>
                         </div>
@@ -201,6 +204,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                                 name="mobile"
                                 value={formData.mobile}
                                 onChange={handleInputChange}
+                                required
                             />
                         </div>
                     )}
@@ -213,6 +217,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                                 placeholder="ENTER OTP"
                                 value={enteredOtp}
                                 onChange={(e) => setEnteredOtp(e.target.value)}
+                                required
                             />
                             <button className='enq-otp-btn1' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
                         </div>
@@ -238,6 +243,7 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                                 checked={checked}
                                 onChange={handleCheckboxChange}
                                 className="ride-checkbox-input"
+                                required
                             />
                             <span className="checkbox-custom"></span>
                             <span className="checkbox-text">I agree to the Terms & Conditions</span>

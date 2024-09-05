@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import ImageSlider from "./ImageSlider";
+import React, { useState } from 'react';
+import { ImageSlider, FormPopup, ContactButton } from "./ImageSlider";
 import { bannerImages, bikeSDetails } from "../data/bannerImages";
 import LandingPage from "./LandingPageText";
 import BikeSlider from "./BikeSlider";
@@ -9,14 +9,26 @@ import '../Styles/components.css'
 function HomePage() {
     const [currentSlideId, setCurrentSlideId] = useState(1);
     const handleSlideChange = (slideId) => {
-      setCurrentSlideId(slideId);
+        setCurrentSlideId(slideId);
     };
+    const [isPopupVisible, setPopupVisible] = useState(true);
+
+    const togglePopup = () => {
+        setPopupVisible(!isPopupVisible);
+    };
+
+ 
+
     const selectedBike = bikeSDetails.find(bike => bike.id === parseInt(currentSlideId));
     const galleryImages = selectedBike ? selectedBike.gallery.map(image => image) : [];
     return (
         <div>
+            <FormPopup isVisible={isPopupVisible} onClose={togglePopup} />
+            
             <ImageSlider images={bannerImages} />
+
             <LandingPage />
+
             <BikeSlider images={bikeSDetails} onSlideChange={handleSlideChange} />
             <Card
                 icon1="/images/span.icon1.png"

@@ -87,8 +87,9 @@ export default function ReachUs() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!fname || !phone || !email || !mobile || !selected) {
-      alert('Please fill out all mandatory fields: First Name, Phone Number, Email, and Branch');
+  
+    if (!fname || !email || !mobile || !selected) {
+      alert('Please fill out all mandatory fields: First Name,Mobile Number, Email, and Branch');
       return;
     }
 
@@ -100,10 +101,12 @@ export default function ReachUs() {
       alert('Please enter a valid mobile number.');
       return;
     }
-    if (!validateMobile(phone)) {
-      alert('Please enter a valid mobile number.');
+
+    if (!otpVerified) {
+      alert('Please verify your OTP before submitting the form.');
       return;
     }
+    
 
     try {
       const data = {
@@ -111,10 +114,9 @@ export default function ReachUs() {
         name: fname + ' ' + lname,
         emailSubject: 'Reach Us Form Submission',
         email: email,
-        phone: phone,
+        phone: mobile,
         branch: selected,
-        subject: subject,
-        message: message,
+        description: message,
         // to: 'eman.maharana@gmail.com',
         to: "sales@bigwingbengaluru.com",
       };
@@ -147,8 +149,6 @@ export default function ReachUs() {
     }
 
     try {
-      console.log("====================", mobile);
-      
       // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: mobile });
 
 
@@ -193,35 +193,42 @@ export default function ReachUs() {
       <div className='form-container'>
         <div className="input-column">
           <div className="input-row">
-            <input className="e-input" type="text" placeholder="FIRST NAME" value={fname} onChange={handleFnameChange} />
-            <input className="e-input" type="text" placeholder="LAST NAME" value={lname} onChange={handleLnameChange} />
+            <input required className="e-input" type="text" placeholder="FIRST NAME" value={fname} onChange={handleFnameChange} />
+            <input required className="e-input" type="text" placeholder="LAST NAME" value={lname} onChange={handleLnameChange} />
           </div>
           <div className="input-row">
-            <input className="e-input " type="text" placeholder="PHONE NUMBER" value={phone} onChange={handlePhoneChange} />
-            <input className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
+            <input required className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
+            <select className="s-input-select" onChange={handleSelectChange} value={selected}>
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           {!otpSent ? (
-            <div className="input-row">
-              <select className="s-input" onChange={handleSelectChange} value={selected}>
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
-              <button className='otp-btn' type="button" onClick={handleGetOtp}>Get OTP</button>
+            <div className="input-row1">
+              <input
+                required
+                className="s-input"
+                type="text"
+                name="mobile"
+                placeholder="ENTER MOBILE NO."
+                value={mobile}
+                onChange={handleMobileChange}
+              />
+              <button className='r-otp-btn' type="button" onClick={handleGetOtp}>GET OTP</button>
             </div>
           ) : (
             <div className="input-row1">
-              <select className="s-input" onChange={handleSelectChange} value={selected}>
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <input className="e-input mobile-input" type="text" placeholder="ENTER MOBILE NO." onChange={handleMobileChange} value={mobile} />
+              <input
+                className="s-input"
+                type="text"
+                name="mobile"
+                value={mobile}
+                onChange={handleMobileChange}
+                required
+              />
             </div>
           )}
         </div>
@@ -233,8 +240,9 @@ export default function ReachUs() {
               placeholder="ENTER OTP"
               value={enteredOtp}
               onChange={(e) => setEnteredOtp(e.target.value)}
+              required
             />
-            <button className='otp-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
+            <button className='r-otp-btn' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
           </div>
         )}
 
@@ -250,12 +258,11 @@ export default function ReachUs() {
         )}
 
         <div className="input-row">
-          <textarea className="e-input text-area" type="text" placeholder="SUBJECT" value={subject} onChange={handleSubjectChange} />
-          <textarea className="e-input text-area" type="text" placeholder="MESSAGE" value={message} onChange={handleMessageChange} />
+          <textarea required className="rsa-desc-input" type="text" placeholder="MESSAGE" name="description" value={message} onChange={handleMessageChange} />
         </div>
-        <div className="input-row input-btn">
-          <button className='btn' type="submit" onClick={handleSubmit}>Submit</button>
-          <button className='btn' type="button" onClick={handleReset}>Reset</button>
+        <div className="rsa-row7">
+          <button className='rsa-btn' type="submit" onClick={handleSubmit}>Submit</button>
+          <button className='rsa-btn' type="button" onClick={handleReset}>Reset</button>
         </div>
       </div>
       <div className="frame">
@@ -270,18 +277,18 @@ export default function ReachUs() {
 
 const styles = {
   notificationContainer: {
-      position: 'fixed',
-      top: '100px',
-      right: '0px',
-      backgroundColor: 'green',
-      color: 'white',
-      padding: '5px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1000,
+    position: 'fixed',
+    top: '100px',
+    right: '0px',
+    backgroundColor: 'green',
+    color: 'white',
+    padding: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
   },
   notificationText: {
-      margin: 0,
+    margin: 0,
   },
 };

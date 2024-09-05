@@ -2,29 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { validateEmail, validateMobile } from '../Utils/validation';
 
-
-// const Notification = ({ message }) => {
-//     useEffect(() => {
-//         const timer = setTimeout(() => {
-//             message.setNotification(null);
-//         }, 5000);
-//         return () => clearTimeout(timer);
-//     }, [message]);
-
-//     return (
-//         <div style={styles.notificationContainer}>
-//             <p style={styles.notificationText}>{message.text}</p>
-//         </div>
-//     );
-// };
-const TestRide = (selectedBike) => {        
-    const [selected, setSelected] = useState('TITLE');
+const TestRide = (selectedBike) => {
     const [checked, setChecked] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState('');
     const [formData, setFormData] = useState({
+        selectedModel: '',
         name: '',
         email: '',
         mobile: '',
+        selectedBranch: ''
     });
 
     const [otp, setOtp] = useState('');
@@ -51,15 +37,6 @@ const TestRide = (selectedBike) => {
         setChecked(!checked);
     };
 
-    const options = [
-        { label: 'TITLE', value: '' },
-        { label: 'Mr.', value: 'Mr.' },
-        { label: 'Mrs.', value: 'Mrs.' },
-    ];
-
-    const handleSelectChange = (event) => {
-        setSelected(event.target.value);
-    };
 
     const branchOptions = [
         { label: 'SELECT BRANCH', value: '' },
@@ -68,17 +45,42 @@ const TestRide = (selectedBike) => {
         { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
     ];
 
+    const modelOptions = [
+        { label: 'SELECT MODEL', value: '' },
+        { label: 'CB300F', value: 'CB300F' },
+        { label: 'CB300R', value: 'CB300R' },
+        { label: 'CB350', value: 'CB350' },
+        { label: 'H’nessCB350', value: 'H’nessCB350' },
+        { label: 'CB350RS', value: 'CB350RS' },
+        { label: 'NX500', value: 'NX500' },
+        { label: 'TRANSALP', value: 'TRANSALP' },
+        { label: 'GOLDWING', value: 'GOLDWING' },
+    ];
+
     const handleBranchChange = (event) => {
         setSelectedBranch(event.target.value);
     };
 
+    // const handleInputChange = (event) => {
+    //     const { name, value } = event.target;
+    //     setFormData({ ...formData, [name]: value });
+    // };
+
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, value, type, checked } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!formData.name || !formData.phone || !formData.email || !formData.selectedBranch || !formData.selectedModel) {
+            alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
+            return;
+        }
 
         if (!validateEmail(formData.email)) {
             alert('Please enter a valid email address.');
@@ -94,10 +96,16 @@ const TestRide = (selectedBike) => {
             return;
         }
 
+        if (!otpVerified) {
+            alert('Please verify your OTP before submitting the form.');
+            return;
+        }
+
+
         const data = {
             templateType: 'testRide',
             emailSubject: 'Test Ride Request',
-            name: selected + ' ' + formData.name,
+            name: formData.name,
             email: formData.email,
             phone: formData.mobile,
             branch: selectedBranch,
@@ -105,7 +113,7 @@ const TestRide = (selectedBike) => {
             // to: 'eman.maharana@gmail.com',
             to: "sales@bigwingbengaluru.com",
 
-            selectedModel: selectedBike.selectedBike.modelName,
+            selectedModel: formData.selectedModel,
             forTestRide: 'Yes',
         };
 
@@ -131,7 +139,7 @@ const TestRide = (selectedBike) => {
             return;
         }
 
-        try {            
+        try {
             // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
 
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.mobile });
@@ -165,14 +173,7 @@ const TestRide = (selectedBike) => {
                     <span style={{ marginBottom: '10px' }}>BOOK A TEST RIDE</span>
                 </div>
                 <div className="ride-form">
-                    <div>
-                        <select className='ride-title-input' onChange={handleSelectChange} value={selected}>
-                            {options.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+                    <div className='ride-row1'>
                         <input
                             className="ride-name-input"
                             type="text"
@@ -180,6 +181,7 @@ const TestRide = (selectedBike) => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
+                            required
                         />
                         <input
                             className="ride-email-input"
@@ -188,29 +190,52 @@ const TestRide = (selectedBike) => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     {!otpSent ? (
-                        <div className='ride-mobile-div'>
-                            <input
-                                className="ride-mob-input"
-                                type="text"
-                                placeholder="ENTER MOBILE NO."
-                                name="mobile"
-                                value={formData.mobile}
-                                onChange={handleInputChange}
-                            />
-                            <button className='ride-otp-btn1' type="button" onClick={handleGetOtp}>Get OTP</button>
+                        <div className='ride-mobile-div' >
+                            <div>
+                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                    {modelOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <input
+                                    className="ride-mob-input"
+                                    type="text"
+                                    placeholder="ENTER MOBILE NO."
+                                    name="mobile"
+                                    value={formData.mobile}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <button className='ride-otp-btn1' type="button" onClick={handleGetOtp}>Get OTP</button>
+                            </div>
                         </div>
                     ) : (
-                        <div className='ride-mobile-div1'>
+                        <div className='ride-mobile-div'>
+                            <div>
+                                <select className="ride-select-model-otp" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                    {modelOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                             <input
-                                className="ride-mob-input"
+                                className="ride-mob-input-otp"
                                 type="text"
                                 placeholder="ENTER MOBILE NO."
                                 name="mobile"
                                 value={formData.mobile}
                                 onChange={handleInputChange}
+                                required
                             />
                         </div>
                     )}
@@ -223,6 +248,7 @@ const TestRide = (selectedBike) => {
                                 placeholder="ENTER OTP"
                                 value={enteredOtp}
                                 onChange={(e) => setEnteredOtp(e.target.value)}
+                                required
                             />
                             <button className='ride-otp-btn1' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
                         </div>
@@ -264,6 +290,7 @@ const TestRide = (selectedBike) => {
                             checked={checked}
                             onChange={handleCheckboxChange1}
                             className="ride-checkbox-input"
+                            required
                         />
                         <span className="ride-checkbox-custom"></span>
                         <span className="ride-checkbox-text">I agree to the Terms & Conditions</span>
@@ -279,21 +306,3 @@ const TestRide = (selectedBike) => {
 };
 
 export default TestRide;
-
-const styles = {
-    notificationContainer: {
-        position: 'fixed',
-        top: '100px',
-        right: '0px',
-        backgroundColor: 'green',
-        color: 'white',
-        padding: '5px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1000,
-    },
-    notificationText: {
-        margin: 0,
-    },
-};

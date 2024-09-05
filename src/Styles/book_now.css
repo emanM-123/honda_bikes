@@ -300,7 +300,7 @@
 }
 
 .enq-name-input {
-    width: 280px;
+    width: 420px;
 }
 
 .enq-email-input {
@@ -435,7 +435,7 @@
     }
 
     .enq-name-input {
-        width: 240px;
+        width: 340px;
         height: 25px;
     }
 
@@ -451,7 +451,7 @@
 
     .checkbox-label {
         margin-left: 15px;
-    
+
     }
 
     .enq-input-btn1 {
@@ -527,7 +527,7 @@
     z-index: 1;
 }
 
-.enq-timer p{
+.enq-timer p {
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -564,22 +564,40 @@
     border-radius: 2px;
 }
 
+.ride-row1 {
+    display: flex;
+    gap: 10px;
+}
+
 .ride-name-input {
-    width: 280px;
+    width: 440px;
     padding: 8px;
     height: 22px;
-    margin-left: 12px;
 }
 
 .ride-email-input {
     width: 420px;
     padding: 8px;
-    margin: 8px;
+    /* margin: 8px; */
     height: 22px;
 }
 
+.ride-select-model {
+    width: 420px;
+    height: 38px;
+    background-color: rgb(17, 17, 17);
+    color: white;
+    border: 1px solid rgba(255, 255, 255);
+    border-radius: 2px;
+
+}
+
 .ride-mobile-div {
-    margin: 2px 460px 2px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px;
+    gap: 10px
 }
 
 .ride-mobile-div1 {
@@ -587,20 +605,34 @@
 }
 
 .ride-mob-input {
-    width: 280px;
+    width: 360px;
     margin-top: 1px;
-    margin-right: 20px;
     height: 32px;
 }
 
+.ride-mob-input-otp {
+    width: 426px;
+    margin-top: 1px;
+    height: 32px;
+}
+.ride-select-model-otp{
+    width: 465px;
+    height: 38px;
+    background-color: rgb(17, 17, 17);
+    color: white;
+    border: 1px solid rgba(255, 255, 255);
+    border-radius: 2px;
+
+}
 .ride-otp-btn1 {
     background-color: red;
     color: white;
     padding: 8px 16px;
     border: none;
-    width: 150px;
+    width: 100px;
     height: 35px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .ride-add-input {
@@ -766,6 +798,7 @@
     .ride-mobile-div {
         margin: 8px 100px 0 0;
     }
+
     .ride-mobile-div1 {
         margin: 8px 100px 0 0;
     }
@@ -797,6 +830,32 @@
 }
 
 @media screen and (max-width:500px) {
+    .ride-div {
+        height: 650px;
+    }
+
+    .rsa-row4 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ride-mobile-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ride-select-model {
+        width: 300px;
+    }
+
+    .ride-row1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .ride-sprite-icon img {
         width: 30px;
         height: 30px;
@@ -815,16 +874,17 @@
     }
 
     .ride-name-input {
-        width: 200px;
+        width: 290px;
         margin-bottom: 10px;
     }
 
     .ride-email-input {
         width: 290px;
+        margin-left: -5px;
     }
 
     .ride-mob-input {
-        width: 188px;
+        width: 198px;
     }
 
     .ride-mobile-div {

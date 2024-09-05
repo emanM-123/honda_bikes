@@ -83,6 +83,18 @@
   border: 1px solid rgba(255, 255, 255, 0.89);
   margin-right: 12px;
   margin-left: auto;
+  margin-top: 8px;
+}
+
+.s-input-select {
+  width: 465px;
+  height: 38px;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.89);
+  margin-right: 12px;
+  margin-left: auto;
+  margin-top: 8px;
 }
 
 .mobile-input {
@@ -105,6 +117,16 @@
   cursor: pointer;
   height: 40px;
   margin-right: 10px;
+}
+
+.r-otp-btn {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border: none;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .otp-btn {
@@ -139,7 +161,6 @@
     width: 40px;
     height: 50px;
   }
-
 
   .form-container {
     margin-top: 100px;
@@ -181,6 +202,10 @@
     margin-top: 0;
   }
 
+  .r-otp-btn {
+    width: 100px;
+  }
+
   .otp-btn {
     width: 100px;
   }
@@ -219,6 +244,12 @@
     margin-top: 3px;
   }
 
+  .r-otp-btn {
+    width: 90px;
+    margin-left: -20px;
+    margin-top: 3px;
+  }
+
   .frame img {
     height: 180px;
     width: 180px;
@@ -232,7 +263,6 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 0;
-
   }
 
   .form-container {
@@ -242,11 +272,16 @@
 
   .e-input,
   .text-area,
-  .otp-btn {
+  .otp-btn .r-otp-btn {
     width: 100%;
   }
 
   .s-input {
+    width: 60%;
+    margin-left: 5px;
+  }
+
+  .s-input-select {
     width: 96%;
     margin-left: 5px;
   }
@@ -264,6 +299,18 @@
   .otp-btn {
     width: 40%;
     margin-left: 100px;
+  }
+
+  .r-otp-btn {
+    width: 30%;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+
+  .rsa-desc-input {
+    width: 90%;
+    font-size: 12px;
+    margin-left: 10px;
   }
 
   .input-column {
@@ -300,8 +347,7 @@
   }
 }
 
-
-/*rsa&ew css*/
+/*=============================rsa&ew css========================*/
 
 .rsa-form-container {
   margin-top: 160px;
@@ -399,7 +445,16 @@
 .rsa-std-input {
   width: 47%;
   padding: 8px;
-  height: 22px;
+  height: 24px;
+}
+
+.rsa-add-input {
+  width: 48%;
+  background-color: rgb(17, 17, 17);
+  color: white;
+  border: 1px solid rgba(255, 255, 255);
+  margin-left: 10px;
+  padding: 5px 4px;
 }
 
 .rsa-phone-input {
@@ -407,6 +462,14 @@
   padding: 8px;
   height: 22px;
   margin-left: 10px;
+}
+
+.rsa-row2 {
+  margin-bottom: 10px
+}
+
+.rsa-row4 {
+  display: flex;
 }
 
 .rsa-row7 {
@@ -435,6 +498,7 @@
   border-radius: 2px;
   margin-top: 10px;
 }
+
 
 .rsa-checkbox-input {
   border: 2px;
@@ -576,5 +640,14 @@
     font-size: 13px;
   }
 
-}
+  .rsa-add-input {
+    width: 90%;
+    margin-top: 15px;
+    margin-left: 0px;
+  }
 
+  .input-row1 {
+    display: flex;
+    flex-direction: row;
+  }
+}

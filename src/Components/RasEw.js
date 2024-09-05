@@ -3,24 +3,8 @@ import React, { useState, useEffect } from "react";
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
-// const Notification = ({ message }) => {
-//     useEffect(() => {
-//         const timer = setTimeout(() => {
-//             message.setNotification(null);
-//         }, 5000);
-//         return () => clearTimeout(timer);
-//     }, [message]);
-
-//     return (
-//         <div style={styles.notificationContainer}>
-//             <p style={styles.notificationText}>{message.text}</p>
-//         </div>
-//     );
-// };
-
 const RsaEw = () => {
     const [formData, setFormData] = useState({
-        selected: 'TITLE',
         selectedBranch: '',
         selectedModel: '',
         renewInsuranceChecked: false,
@@ -29,7 +13,7 @@ const RsaEw = () => {
         lname: '',
         email: '',
         phone: '',
-        stdCode: '',
+        pinCode: '',
         phoneNumber: '',
         description: '',
     });
@@ -72,12 +56,6 @@ const RsaEw = () => {
         { label: 'GOLDWING', value: 'GOLDWING' },
     ];
 
-    const options = [
-        { label: 'TITLE', value: '' },
-        { label: 'Mr.', value: 'Mr.' },
-        { label: 'Mrs.', value: 'Mrs.' },
-    ];
-
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
         setFormData(prevState => ({
@@ -91,7 +69,7 @@ const RsaEw = () => {
             alert('Please enter a valid mobile number.');
             return;
         }
-        
+
         try {
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.phone });
             console.log("responseresponseresponseresponse", response.data.otp)
@@ -125,11 +103,16 @@ const RsaEw = () => {
             alert('Please enter a valid mobile number.');
             return;
         }
-
         if (!formData.fname || !formData.phone || !formData.email || !formData.selectedBranch || !formData.selectedModel) {
             alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
             return;
         }
+
+        if (!otpVerified) {
+            alert('Please verify your OTP before submitting the form.');
+            return;
+        }
+
 
         const rsaWeData = {
             ...formData,
@@ -137,12 +120,12 @@ const RsaEw = () => {
             to: "sales@bigwingbengaluru.com",
             templateType: 'rsaWe',
             emailSubject: 'RSA WE',
-            name: formData.selected + ' ' + formData.fname + ' ' + formData.lname,
+            name: formData.fname + ' ' + formData.lname,
             emailSubject: 'Reach Us Form Submission',
             email: formData.email,
             phone: formData.phone,
             branch: formData.selectedBranch,
-            subject: formData.description,
+            description: formData.description,
             selectedModel: formData.selectedModel,
         };
 
@@ -150,7 +133,7 @@ const RsaEw = () => {
         try {
             // const response = await axios.post('http://localhost:3001/api/send-email', rsaWeData);
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', rsaWeData);
-            
+
             alert('Form successfully submitted');
             setFormData({
                 selected: 'TITLE',
@@ -162,7 +145,7 @@ const RsaEw = () => {
                 lname: '',
                 email: '',
                 phone: '',
-                stdCode: '',
+                pinCode: '',
                 phoneNumber: '',
                 description: '',
             });
@@ -183,7 +166,7 @@ const RsaEw = () => {
             lname: '',
             email: '',
             phone: '',
-            stdCode: '',
+            pinCode: '',
             phoneNumber: '',
             description: '',
         });
@@ -217,19 +200,12 @@ const RsaEw = () => {
                     </div>
                 </div>
                 <div className="rsa-row2">
-                    <select className='rsa-title-input' name="selected" onChange={handleInputChange} value={formData.selected}>
-                        {options.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
-                    <input className="rsa-name-input" type="text" placeholder="FIRST NAME" name="fname" onChange={handleInputChange} value={formData.fname} />
-                    <input className="rsa-name-input" type="text" placeholder="LAST NAME" name="lname" onChange={handleInputChange} value={formData.lname} />
+                    <input required className="rsa-std-input" type="email" placeholder="FIRST NAME" name="fname" onChange={handleInputChange} value={formData.fname} />
+                    <input required className="rsa-phone-input" type="email" placeholder="LAST NAME" name="lname" onChange={handleInputChange} value={formData.lname} />
                 </div>
                 <div className="rsa-row3">
-                    <input className="rsa-email-input" type="email" placeholder="ENTER EMAIL" name="email" onChange={handleInputChange} value={formData.email} />
-                    <input className="rsa-mob-input" type="text" placeholder="ENTER MOBILE NO." name="phone" onChange={handleInputChange} value={formData.phone} />
+                    <input required className="rsa-email-input" type="email" placeholder="ENTER EMAIL" name="email" onChange={handleInputChange} value={formData.email} />
+                    <input required className="rsa-mob-input" type="text" placeholder="ENTER MOBILE NO." name="phone" onChange={handleInputChange} value={formData.phone} />
                     {!otpSent && (
                         <button className='rsa-otp-btn' type="button" onClick={handleGetOtp}>Get OTP</button>
                     )}
@@ -237,6 +213,7 @@ const RsaEw = () => {
                 {otpSent && !otpVerified && (
                     <div className="rsa-row3">
                         <input
+                            required
                             className="rsa-otp-input"
                             type="text"
                             placeholder="ENTER OTP"
@@ -259,8 +236,8 @@ const RsaEw = () => {
                 )}
 
                 <div className="rsa-row4">
-                    <input className="rsa-std-input" type="email" placeholder="ENTER STD CODE" name="stdCode" onChange={handleInputChange} value={formData.stdCode} />
-                    <input className="rsa-phone-input" type="email" placeholder="ENTER PHONE NO." name="phoneNumber" onChange={handleInputChange} value={formData.phoneNumber} />
+                    <input required className="rsa-std-input" type="email" placeholder="ENTER PIN CODE" name="pinCode" onChange={handleInputChange} value={formData.pinCode} />
+                    <textarea required className="rsa-add-input" type="text" placeholder="ENTER YOUR ADDRESS" name="address" onChange={handleInputChange} value={formData.address} />
                 </div>
                 <div className="rsa-row5">
                     <textarea className="rsa-desc-input" type="text" placeholder="DESCRIPTION" name="description" onChange={handleInputChange} value={formData.description} />
@@ -271,6 +248,7 @@ const RsaEw = () => {
                         className={`rsa-checkbox-label ${formData.renewInsuranceChecked ? 'checked' : ''}`}
                     >
                         <input
+                            required
                             type="checkbox"
                             id="renew-insurance"
                             className="rsa-checkbox-input"
@@ -293,6 +271,7 @@ const RsaEw = () => {
                             name="extendedWarrantyChecked"
                             checked={formData.extendedWarrantyChecked}
                             onChange={handleInputChange}
+                            required
                         />
                         <span className="rsa-checkbox-custom"></span>
                         <span className="rsa-checkbox-text">DO YOU WANT TO EXTENDED WARRANTY?</span>

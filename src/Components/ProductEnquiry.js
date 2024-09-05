@@ -1,34 +1,16 @@
-
 import React, { useState, useEffect } from 'react';
-import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
+import { validateEmail, validateMobile } from '../Utils/validation';
 
-// const Notification = ({ message }) => {
-//     useEffect(() => {
-//         const timer = setTimeout(() => {
-//             message.setNotification(null);
-//         }, 5000);
-//         return () => clearTimeout(timer);
-//     }, [message]);
-
-//     return (
-//         <div style={styles.notificationContainer}>
-//             <p style={styles.notificationText}>{message.text}</p>
-//         </div>
-//     );
-// };
-const ProductEnquiry = () => {
-
-
-    const [notification, setNotification] = useState(null);
-    const [selected, setSelected] = useState('TITLE');
-    const [selectedBranch, setSelectedBranch] = useState('');
+const TestRide = (selectedBike) => {
     const [checked, setChecked] = useState(false);
+    const [selectedBranch, setSelectedBranch] = useState('');
     const [formData, setFormData] = useState({
+        selectedModel: '',
         name: '',
         email: '',
         mobile: '',
-        address: 'BANGALORE',
+        selectedBranch: ''
     });
 
     const [otp, setOtp] = useState('');
@@ -51,26 +33,47 @@ const ProductEnquiry = () => {
     }, [otpSent, otpVerified, timerSeconds]);
 
 
-    const handleCheckboxChange = () => {
+    const handleCheckboxChange1 = () => {
         setChecked(!checked);
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
 
-    const handleSelectChange = (event) => {
-        setSelected(event.target.value);
-    };
+    const branchOptions = [
+        { label: 'SELECT BRANCH', value: '' },
+        { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
+        { label: 'BANASHANKARI', value: 'BANASHANKARI' },
+        { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
+    ];
+
+    const modelOptions = [
+        { label: 'SELECT MODEL', value: '' },
+        { label: 'CB300F', value: 'CB300F' },
+        { label: 'CB300R', value: 'CB300R' },
+        { label: 'CB350', value: 'CB350' },
+        { label: 'H’nessCB350', value: 'H’nessCB350' },
+        { label: 'CB350RS', value: 'CB350RS' },
+        { label: 'NX500', value: 'NX500' },
+        { label: 'TRANSALP', value: 'TRANSALP' },
+        { label: 'GOLDWING', value: 'GOLDWING' },
+    ];
 
     const handleBranchChange = (event) => {
         setSelectedBranch(event.target.value);
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!checked) {
-            alert("You must agree to the terms and conditions to submit the form.");
+
+    const handleInputChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!formData.name || !formData.phone || !formData.email || !formData.selectedBranch || !formData.selectedModel) {
+            alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
             return;
         }
 
@@ -82,16 +85,31 @@ const ProductEnquiry = () => {
             alert('Please enter a valid mobile number.');
             return;
         }
+
+        if (!checked) {
+            alert('Please agree to the Terms & Conditions');
+            return;
+        }
+
+        if (!otpVerified) {
+            alert('Please verify your OTP before submitting the form.');
+            return;
+        }
+
+
         const data = {
-            ...formData,
-            title: selected,
-            branch: selectedBranch,
-            templateType: 'productEnquiry',
-            emailSubject: 'Product Enquiry',
-            to: 'eman.maharana@gmail.com',
-            // to: "sales@bigwingbengaluru.com",
-            forEnquiry: 'Yes',
+            templateType: 'testRide',
+            emailSubject: 'Test Ride Request',
+            name: formData.name,
+            email: formData.email,
             phone: formData.mobile,
+            branch: selectedBranch,
+            city: 'BANGALORE',
+            // to: 'eman.maharana@gmail.com',
+            to: "sales@bigwingbengaluru.com",
+
+            selectedModel: formData.selectedModel,
+            forTestRide: 'Yes',
         };
 
         try {
@@ -99,17 +117,14 @@ const ProductEnquiry = () => {
 
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
             if (response.status === 200) {
-                handleReset();
                 alert('Form successfully submitted');
-                // setNotification({ text: 'Form successfully submitted', setNotification });
-
+                setFormData({ name: '', email: '', mobile: '' });
+                setChecked(false);
             } else {
                 alert('Failed to send email');
             }
-
         } catch (error) {
             console.error('Error sending email:', error);
-            alert('Error sending email. Please try again.');
         }
     };
 
@@ -144,31 +159,6 @@ const ProductEnquiry = () => {
     };
 
 
-    const options = [
-        { label: 'TITLE', value: '' },
-        { label: 'Mr.', value: 'Mr.' },
-        { label: 'Mrs.', value: 'Mrs.' },
-    ];
-
-    const branchOptions = [
-        { label: 'SELECT BRANCH', value: '' },
-        { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
-        { label: 'BANASHANKARI', value: 'BANASHANKARI' },
-        { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
-    ];
-
-    const handleReset = () => {
-        setFormData({
-            name: '',
-            email: '',
-            mobile: '',
-            address: 'BANGALORE',
-        });
-        setSelected('');
-        setSelectedBranch('');
-        setChecked(false);
-    };
-
     return (
         <div className="slideshow-container">
             <div className="ride-container">
@@ -177,41 +167,39 @@ const ProductEnquiry = () => {
                     <img src="/images/spirite_icon.png" alt="test-ride-icon" />
                     <span>PRODUCT ENQUIRY</span>
                 </div>
-                <div className="pro-enq-form">
-                    {/* {notification && (
-                        <Notification
-                            message={notification}
-                            onClose={() => setNotification(null)}
+                <div className="ride-form">
+                    <div className='ride-row1'>
+                        <input
+                            className="ride-name-input"
+                            type="text"
+                            placeholder="ENTER NAME"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
                         />
-                    )} */}
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <select className='ride-title-input' onChange={handleSelectChange} value={selected}>
-                                {options.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                            <input
-                                className="ride-name-input"
-                                type="text"
-                                placeholder="ENTER NAME"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                className="ride-email-input"
-                                type="email"
-                                placeholder="ENTER EMAIL"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        {!otpSent ? (
-                            <div className='ride-mobile-div'>
+                        <input
+                            className="ride-email-input"
+                            type="email"
+                            placeholder="ENTER EMAIL"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    {!otpSent ? (
+                        <div className='ride-mobile-div' >
+                            <div>
+                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                    {modelOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
                                 <input
                                     className="ride-mob-input"
                                     type="text"
@@ -219,101 +207,97 @@ const ProductEnquiry = () => {
                                     name="mobile"
                                     value={formData.mobile}
                                     onChange={handleInputChange}
+                                    required
                                 />
                                 <button className='ride-otp-btn1' type="button" onClick={handleGetOtp}>Get OTP</button>
                             </div>
-                        ) : (
-                            <div className='ride-mobile-div1'>
-                                <input
-                                    className="ride-mob-input"
-                                    type="text"
-                                    placeholder="ENTER MOBILE NO."
-                                    name="mobile"
-                                    value={formData.mobile}
-                                    onChange={handleInputChange}
-                                />
+                        </div>
+                    ) : (
+                        <div className='ride-mobile-div'>
+                            <div>
+                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                    {modelOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
-                        )}
-
-                        {otpSent && !otpVerified && (
-                            <div className="ride-mobile-div">
-                                <input
-                                    className="ride-mob-input"
-                                    type="text"
-                                    placeholder="ENTER OTP"
-                                    value={enteredOtp}
-                                    onChange={(e) => setEnteredOtp(e.target.value)}
-                                />
-                                <button className='ride-otp-btn1' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
-                            </div>
-                        )}
-
-                        {otpVerified && (
-                            <div className="rsa-verification-success">
-                                <p>OTP Verified Successfully!</p>
-                            </div>
-                        )}
-                        {otpSent && !otpVerified && timerSeconds > 0 && (
-                            <div className="enq-timer">
-                                <p>OTP expires in {timerSeconds} seconds</p>
-                            </div>
-                        )}
-
-                        <div>
                             <input
-                                className='ride-add-input'
-                                type='text'
-                                value='BANGALORE'
-                                readOnly
+                                className="ride-mob-input"
+                                type="text"
+                                placeholder="ENTER MOBILE NO."
+                                name="mobile"
+                                value={formData.mobile}
+                                onChange={handleInputChange}
+                                required
                             />
-                            <select className='ride-add-select' onChange={handleBranchChange} value={selectedBranch}>
-                                {branchOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
                         </div>
-                        <div>
+                    )}
 
-                        </div>
-                        <div htmlFor="terms" className="product-enquiry-checkbox-label">
+                    {otpSent && !otpVerified && (
+                        <div className="ride-mobile-div">
                             <input
-                                type="checkbox"
-                                id="terms"
-                                checked={checked}
-                                onChange={handleCheckboxChange}
-                                className="ride-checkbox-input"
+                                className="ride-mob-input"
+                                type="text"
+                                placeholder="ENTER OTP"
+                                value={enteredOtp}
+                                onChange={(e) => setEnteredOtp(e.target.value)}
+                                required
                             />
-                            <span className="checkbox-custom"></span>
-                            <span className="checkbox-text">I agree to the Terms & Conditions</span>
+                            <button className='ride-otp-btn1' type="button" onClick={handleVerifyOtp}>Verify OTP</button>
                         </div>
-                        <div className="ride-input-btn1">
-                            <button className='ride-btn1' type="submit">Submit</button>
-                            <button className='ride-btn1' type="reset" onClick={handleReset}>Reset</button>
+                    )}
+
+                    {otpVerified && (
+                        <div className="rsa-verification-success">
+                            <p>OTP Verified Successfully!</p>
                         </div>
-                    </form>
+                    )}
+                    {otpSent && !otpVerified && timerSeconds > 0 && (
+                        <div className="enq-timer">
+                            <p>OTP expires in {timerSeconds} seconds</p>
+                        </div>
+                    )}
+                    <div>
+                        <input
+                            className='ride-add-input'
+                            type='text'
+                            value='BANGALORE'
+                            readOnly
+                        />
+                        <select
+                            className='ride-add-select'
+                            onChange={handleBranchChange}
+                            value={selectedBranch}
+                        >
+                            {branchOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <label htmlFor="terms2" className="ride-checkbox-label">
+                        <input
+                            type="checkbox"
+                            id="terms2"
+                            checked={checked}
+                            onChange={handleCheckboxChange1}
+                            className="ride-checkbox-input"
+                            required
+                        />
+                        <span className="ride-checkbox-custom"></span>
+                        <span className="ride-checkbox-text">I agree to the Terms & Conditions</span>
+                    </label>
+                    <div className="ride-input-btn1">
+                        <button className='ride-btn1' type="submit" onClick={handleSubmit}>Submit</button>
+                        <button className='ride-btn1' type="button">Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default ProductEnquiry;
-const styles = {
-    notificationContainer: {
-        position: 'fixed',
-        top: '100px',
-        right: '0px',
-        backgroundColor: 'green',
-        color: 'white',
-        padding: '5px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1000,
-    },
-    notificationText: {
-        margin: 0,
-    },
-};
+export default TestRide;
