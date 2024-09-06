@@ -77,8 +77,8 @@ const TestRide = (selectedBike) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.name || !formData.phone || !formData.email || !formData.selectedBranch || !formData.selectedModel) {
-            alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
+        if (!formData.name || !formData.phone || !formData.email ) {
+            alert('Please fill out all mandatory fields: First Name, Phone Number, Email');
             return;
         }
 
@@ -196,7 +196,7 @@ const TestRide = (selectedBike) => {
                     {!otpSent ? (
                         <div className='ride-mobile-div' >
                             <div>
-                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                <select  required className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
                                     {modelOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -220,7 +220,7 @@ const TestRide = (selectedBike) => {
                     ) : (
                         <div className='ride-mobile-div'>
                             <div>
-                                <select className="ride-select-model-otp" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                <select required className="ride-select-model-otp" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
                                     {modelOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -275,6 +275,7 @@ const TestRide = (selectedBike) => {
                             className='ride-add-select'
                             onChange={handleBranchChange}
                             value={selectedBranch}
+                            required
                         >
                             {branchOptions.map((option) => (
                                 <option key={option.value} value={option.value}>

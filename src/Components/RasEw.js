@@ -181,7 +181,7 @@ const RsaEw = () => {
             <div className="rsa-form-container">
                 <div className="rsa-row1">
                     <div>
-                        <select className="rsa-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                        <select required className="rsa-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
                             {modelOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
@@ -190,7 +190,7 @@ const RsaEw = () => {
                         </select>
                     </div>
                     <div>
-                        <select className="rsa-select-branch" name="selectedBranch" onChange={handleInputChange} value={formData.selectedBranch}>
+                        <select  required className="rsa-select-branch" name="selectedBranch" onChange={handleInputChange} value={formData.selectedBranch}>
                             {branches.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}

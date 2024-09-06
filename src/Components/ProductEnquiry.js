@@ -72,7 +72,7 @@ const TestRide = (selectedBike) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.name || !formData.phone || !formData.email || !formData.selectedBranch || !formData.selectedModel) {
+        if (!formData.name || !formData.mobile || !formData.email) {
             alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
             return;
         }
@@ -98,8 +98,8 @@ const TestRide = (selectedBike) => {
 
 
         const data = {
-            templateType: 'testRide',
-            emailSubject: 'Test Ride Request',
+            templateType: 'enquiryNow',
+            emailSubject: 'Enquiry Request',
             name: formData.name,
             email: formData.email,
             phone: formData.mobile,
@@ -109,7 +109,7 @@ const TestRide = (selectedBike) => {
             to: "sales@bigwingbengaluru.com",
 
             selectedModel: formData.selectedModel,
-            forTestRide: 'Yes',
+            forEnquiry: 'Yes',
         };
 
         try {
@@ -191,7 +191,7 @@ const TestRide = (selectedBike) => {
                     {!otpSent ? (
                         <div className='ride-mobile-div' >
                             <div>
-                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} required value={formData.selectedModel}>
                                     {modelOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -215,7 +215,7 @@ const TestRide = (selectedBike) => {
                     ) : (
                         <div className='ride-mobile-div'>
                             <div>
-                                <select className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                <select className="ride-select-model-otp" name="selectedModel" onChange={handleInputChange} required value={formData.selectedModel}>
                                     {modelOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}
@@ -224,7 +224,7 @@ const TestRide = (selectedBike) => {
                                 </select>
                             </div>
                             <input
-                                className="ride-mob-input"
+                                className="ride-mob-input-otp"
                                 type="text"
                                 placeholder="ENTER MOBILE NO."
                                 name="mobile"
@@ -270,6 +270,7 @@ const TestRide = (selectedBike) => {
                             className='ride-add-select'
                             onChange={handleBranchChange}
                             value={selectedBranch}
+                            required
                         >
                             {branchOptions.map((option) => (
                                 <option key={option.value} value={option.value}>

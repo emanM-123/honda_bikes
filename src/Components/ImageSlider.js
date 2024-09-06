@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { validateEmail, validateMobile } from '../Utils/validation';
+import axios from 'axios';
 
 export function ImageSlider({ images }) {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -56,7 +58,20 @@ ImageSlider.propTypes = {
 
 export function FormPopup({ isVisible, onClose }) {
   console.log(isVisible);
-  
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    model: '',
+    branch: '',
+  });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const branchOptions = [
     { label: 'SELECT BRANCH', value: '' },
     { label: 'TOPLINE BENGALURU', value: 'TOPLINE BENGALURU' },
@@ -76,22 +91,90 @@ export function FormPopup({ isVisible, onClose }) {
     { label: 'GOLDWING', value: 'GOLDWING' },
   ];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Check for mandatory fields
+    if (!formData.name || !formData.phone || !formData.branch || !formData.model) {
+      alert('Please fill out all mandatory fields: Name, Phone Number, Branch, and Model');
+      return;
+    }
+
+    // Validate mobile
+    if (!validateMobile(formData.phone)) {
+      alert('Please enter a valid mobile number.');
+      return;
+    }
+
+    console.log(formData);
+    
+
+    const data = {
+      templateType: 'enquiryNow',
+      emailSubject: 'Enquiry Request',
+      name: formData.name,
+      phone: formData.phone,
+      branch: formData.branch,
+      city: 'BANGALORE',
+      to: "sales@bigwingbengaluru.com",
+      // to:"eman.maharana@gmail.com",
+      selectedModel: formData.model,
+      forEnquiry: 'Yes',
+    };
+    try {
+      // Send email
+      // const response = await axios.post('http://localhost:3001/api/send-email', data);
+      const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
+
+      if (response.status === 200) {
+        alert('Form successfully submitted. Email sent.');
+
+        // Reset form
+        setFormData({ name: '', phone: '', model: '', branch: '' });
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return isVisible ? (
     <div className="popup-overlay">
       <div className="popup-content">
         <button className="close-button" onClick={onClose}>✖</button>
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Name:</label>
-            <input type="text" name="name" required />
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
-            <label>Phone:</label>
-            <input type="tel" name="phone" required />
+            <label htmlFor="phone">Phone:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
-            <label>Model:</label>
-            <select name="model" required>
+            <label htmlFor="model">Model:</label>
+            <select
+              id="model"
+              name="model"
+              value={formData.model}
+              onChange={handleChange}
+              required
+            >
               {modelOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -100,8 +183,14 @@ export function FormPopup({ isVisible, onClose }) {
             </select>
           </div>
           <div className="form-group">
-            <label>Branch:</label>
-            <select name="branch" required>
+            <label htmlFor="branch">Branch:</label>
+            <select
+              id="branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              required
+            >
               {branchOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}

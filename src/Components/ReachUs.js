@@ -198,7 +198,7 @@ export default function ReachUs() {
           </div>
           <div className="input-row">
             <input required className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
-            <select className="s-input-select" onChange={handleSelectChange} value={selected}>
+            <select  required className="s-input-select" onChange={handleSelectChange} value={selected}>
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
