@@ -144,7 +144,9 @@ export function FormPopup({ isVisible, onClose }) {
       <div className="popup-content">
         <button className="close-button" onClick={onClose}>✖</button>
         <form className="form" onSubmit={handleSubmit}>
+        <h4>GET IN TOUCH WITH US TODAY!</h4>
           <div className="form-group">
+            
             <label htmlFor="name">Name:</label>
             <input
               type="text"
