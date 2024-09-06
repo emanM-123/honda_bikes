@@ -73,12 +73,15 @@ const TestRide = (selectedBike) => {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
+console.log(selectedBranch, "selectedBranch");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(formData, "==================");
+        
 
-        if (!formData.name || !formData.phone || !formData.email ) {
-            alert('Please fill out all mandatory fields: First Name, Phone Number, Email');
+        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch ) {
+            alert('Please fill out all mandatory fields: First Name, Phone Number, Email , Model, Branch');
             return;
         }
 
@@ -110,8 +113,8 @@ const TestRide = (selectedBike) => {
             phone: formData.mobile,
             branch: selectedBranch,
             city: 'BANGALORE',
-            // to: 'eman.maharana@gmail.com',
-            to: "sales@bigwingbengaluru.com",
+            to: 'eman.maharana@gmail.com',
+            // to: "sales@bigwingbengaluru.com",
 
             selectedModel: formData.selectedModel,
             forTestRide: 'Yes',

@@ -72,7 +72,7 @@ const TestRide = (selectedBike) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.name || !formData.mobile || !formData.email) {
+        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch ) {
             alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
             return;
         }
@@ -105,8 +105,8 @@ const TestRide = (selectedBike) => {
             phone: formData.mobile,
             branch: selectedBranch,
             city: 'BANGALORE',
-            // to: 'eman.maharana@gmail.com',
-            to: "sales@bigwingbengaluru.com",
+            to: 'eman.maharana@gmail.com',
+            // to: "sales@bigwingbengaluru.com",
 
             selectedModel: formData.selectedModel,
             forEnquiry: 'Yes',

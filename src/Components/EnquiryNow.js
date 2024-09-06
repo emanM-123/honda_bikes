@@ -81,10 +81,15 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
             return;
         }
 
+        if (!otpVerified) {
+            alert('Please verify your OTP before submitting the form.');
+            return;
+        }
+
         const data = {
             templateType: 'enquiryNow',
-            // to: 'eman.maharana@gmail.com',
-            to: "sales@bigwingbengaluru.com",
+            to: 'eman.maharana@gmail.com',
+            // to: "sales@bigwingbengaluru.com",
             emailSubject: 'Enquiry Now',
             name: formData.name,
             email: formData.email,

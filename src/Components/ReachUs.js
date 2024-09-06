@@ -117,8 +117,8 @@ export default function ReachUs() {
         phone: mobile,
         branch: selected,
         description: message,
-        // to: 'eman.maharana@gmail.com',
-        to: "sales@bigwingbengaluru.com",
+        to: 'eman.maharana@gmail.com',
+        // to: "sales@bigwingbengaluru.com",
       };
 
 

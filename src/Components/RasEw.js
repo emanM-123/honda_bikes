@@ -116,8 +116,8 @@ const RsaEw = () => {
 
         const rsaWeData = {
             ...formData,
-            // to: 'eman.maharana@gmail.com',
-            to: "sales@bigwingbengaluru.com",
+            to: 'eman.maharana@gmail.com',
+            // to: "sales@bigwingbengaluru.com",
             templateType: 'rsaWe',
             emailSubject: 'RSA WE',
             name: formData.fname + ' ' + formData.lname,
