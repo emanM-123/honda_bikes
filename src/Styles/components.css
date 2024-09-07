@@ -306,6 +306,18 @@
 .contact-button:hover {
   background-color: #b30000;
 }
+@media screen and (max-width: 768px) {
+  .contact-button {
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    background-color: #ca1515;
+    color: white;
+    padding: 8px 18px;
+  
+  }
+  
+}
 
 /* Other styles remain the same */
 
