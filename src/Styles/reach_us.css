@@ -30,7 +30,7 @@
 
 
 .form-container {
-  margin-top: 130px;
+  margin-top: 200px;
 }
 
 .form-container input {
@@ -263,6 +263,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 0;
+    margin-top: 100px;
   }
 
   .form-container {
@@ -350,7 +351,7 @@
 /*=============================rsa&ew css========================*/
 
 .rsa-form-container {
-  margin-top: 160px;
+  margin-top: 250px;
   width: 70%;
 }
 
