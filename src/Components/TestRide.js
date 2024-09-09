@@ -309,7 +309,10 @@ const TestRide = (selectedBike) => {
                         <span className="ride-checkbox-text">I agree to the Terms & Conditions</span>
                     </label>
                     <div className="ride-input-btn1">
-                        <button className='ride-btn1' type="submit" onClick={handleSubmit}>Submit</button>
+                        {/* <button className='ride-btn1' type="submit" onClick={handleSubmit}>Submit</button> */}
+                        <button className='ride-btn1' type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting.' : 'Submit'}
+                        </button>
                         <button className='ride-btn1' type="button">Reset</button>
                     </div>
                 </div>
