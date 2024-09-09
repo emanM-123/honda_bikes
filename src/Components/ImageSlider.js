@@ -106,9 +106,6 @@ export function FormPopup({ isVisible, onClose }) {
       return;
     }
 
-    console.log(formData);
-    
-
     const data = {
       templateType: 'enquiryNow',
       emailSubject: 'Enquiry Request',
@@ -116,8 +113,8 @@ export function FormPopup({ isVisible, onClose }) {
       phone: formData.phone,
       branch: formData.branch,
       city: 'BANGALORE',
-      // to: "sales@bigwingbengaluru.com",
-      to:"eman.maharana@gmail.com",
+      to: "sales@bigwingbengaluru.com",
+      // to:"eman.maharana@gmail.com",
       selectedModel: formData.model,
       forEnquiry: 'Yes',
     };
