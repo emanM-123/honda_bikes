@@ -3,21 +3,6 @@ import '../Styles/book_now.css';
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
-
-// const Notification = ({ message }) => {
-//     useEffect(() => {
-//         const timer = setTimeout(() => {
-//             message.setNotification(null);
-//         }, 5000);
-//         return () => clearTimeout(timer);
-//     }, [message]);
-
-//     return (
-//         <div style={styles.notificationContainer}>
-//             <p style={styles.notificationText}>{message.text}</p>
-//         </div>
-//     );
-// };
 const EnquiryNow = ({ selectedVariant, selectedBike }) => {
     console.log("selectedBikeselectedBike", selectedBike);
     const [selected, setSelected] = useState('TITLE');
@@ -27,6 +12,14 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
         email: '',
         mobile: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const branchEmails = {
+        'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+        'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+        'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+    };
+
 
     const [otp, setOtp] = useState('');
     const [enteredOtp, setEnteredOtp] = useState('');
@@ -86,10 +79,12 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
             return;
         }
 
+        setIsSubmitting(true);
+        const recipientEmail = branchEmails[formData.branch] || 'sales@bigwingbengaluru.com';
         const data = {
             templateType: 'enquiryNow',
-            to: 'eman.maharana@gmail.com',
-            // to: "sales@bigwingbengaluru.com",
+            // to: 'eman.maharana@gmail.com',
+            to: recipientEmail,
             emailSubject: 'Enquiry Now',
             name: formData.name,
             email: formData.email,
@@ -112,6 +107,9 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
         } catch (error) {
             console.error('Error sending email:', error);
             alert('Error sending email');
+        } finally {
+            // Re-enable the submit button if needed
+            setIsSubmitting(false);
         }
     };
 
@@ -123,13 +121,13 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
 
         try {
             // const response = await axios.post('http://localhost:3001/api/send-sms', { phone: formData.mobile });
-            
+
             const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-sms', { phone: formData.mobile });
             console.log("responseresponseresponseresponse", response.data.otp)
             setOtp(response.data.otp);
             setOtpSent(true);
             alert('OTP sent successfully on your phone number');
-            setTimerSeconds(30); 
+            setTimerSeconds(30);
         } catch (error) {
             console.error('Error sending OTP:', error);
             alert('Error sending OTP');
@@ -256,7 +254,10 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
                     </div>
 
                     <div className="enq-input-btn1">
-                        <button className='enq-btn1' type="submit">Submit</button>
+                        {/* <button className='enq-btn1' type="submit">Submit</button> */}
+                        <button className='enq-btn1' type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting.' : 'Submit'}
+                        </button>
                         <button className='enq-btn1' type="reset" onClick={() => setFormData({ name: '', email: '', mobile: '' })}>Reset</button>
                     </div>
                 </form>
@@ -266,22 +267,3 @@ const EnquiryNow = ({ selectedVariant, selectedBike }) => {
 };
 
 export default EnquiryNow;
-
-
-const styles = {
-    notificationContainer: {
-        position: 'fixed',
-        top: '100px',
-        right: '0px',
-        backgroundColor: 'green',
-        color: 'white',
-        padding: '5px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1000,
-    },
-    notificationText: {
-        margin: 0,
-    },
-};

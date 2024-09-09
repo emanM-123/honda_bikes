@@ -57,8 +57,6 @@ ImageSlider.propTypes = {
 };
 
 export function FormPopup({ isVisible, onClose }) {
-  console.log(isVisible);
-
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -66,6 +64,8 @@ export function FormPopup({ isVisible, onClose }) {
     branch: '',
   });
 
+  const [notification, setNotification] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,6 +78,13 @@ export function FormPopup({ isVisible, onClose }) {
     { label: 'BANASHANKARI', value: 'BANASHANKARI' },
     { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
   ];
+
+  const branchEmails = {
+    'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+    'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+    'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+  };
+
 
   const modelOptions = [
     { label: 'SELECT MODEL', value: '' },
@@ -106,6 +113,9 @@ export function FormPopup({ isVisible, onClose }) {
       return;
     }
 
+    setIsSubmitting(true);
+    const recipientEmail = branchEmails[formData.branch] || 'sales@bigwingbengaluru.com';
+
     const data = {
       templateType: 'enquiryNow',
       emailSubject: 'Enquiry Request',
@@ -113,26 +123,29 @@ export function FormPopup({ isVisible, onClose }) {
       phone: formData.phone,
       branch: formData.branch,
       city: 'BANGALORE',
-      to: "sales@bigwingbengaluru.com",
-      // to:"eman.maharana@gmail.com",
+      to: recipientEmail,
+      // to: 'eman.maharana@gmail.com',
       selectedModel: formData.model,
       forEnquiry: 'Yes',
     };
+
     try {
       // Send email
-      // const response = await axios.post('http://localhost:3001/api/send-email', data);
       const response = await axios.post('https://honda-app-server-422410742420.asia-south1.run.app/api/send-email', data);
-
       if (response.status === 200) {
-        alert('Form successfully submitted. Email sent.');
-
+        setNotification({ text: 'Form successfully submitted. Email sent.' });
         // Reset form
         setFormData({ name: '', phone: '', model: '', branch: '' });
+        // Close the popup
+        onClose();
       } else {
         alert('Failed to send email.');
       }
     } catch (error) {
       console.error('Error:', error);
+    }
+    finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -141,9 +154,8 @@ export function FormPopup({ isVisible, onClose }) {
       <div className="popup-content">
         <button className="close-button" onClick={onClose}>✖</button>
         <form className="form" onSubmit={handleSubmit}>
-        <h4>GET IN TOUCH WITH US TODAY!</h4>
+          <h4>GET IN TOUCH WITH US TODAY!</h4>
           <div className="form-group">
-            
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -197,12 +209,14 @@ export function FormPopup({ isVisible, onClose }) {
               ))}
             </select>
           </div>
-          <button type="submit" className="submit-button">Submit</button>
+          <button type="submit" className="submit-button" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting.' : 'Submit'}
+          </button>
         </form>
       </div>
     </div>
   ) : null;
-}
+};
 
 FormPopup.propTypes = {
   isVisible: PropTypes.bool.isRequired,

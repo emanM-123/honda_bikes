@@ -44,6 +44,12 @@ const RsaEw = () => {
         { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
     ];
 
+    const branchEmails = {
+        'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+        'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+        'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+    };
+
     const modelOptions = [
         { label: 'SELECT MODEL', value: '' },
         { label: 'CB300F', value: 'CB300F' },
@@ -55,7 +61,7 @@ const RsaEw = () => {
         { label: 'TRANSALP', value: 'TRANSALP' },
         { label: 'GOLDWING', value: 'GOLDWING' },
     ];
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
         setFormData(prevState => ({
@@ -113,11 +119,13 @@ const RsaEw = () => {
             return;
         }
 
+        setIsSubmitting(true);
+        const recipientEmail = branchEmails[formData.branch] || 'sales@bigwingbengaluru.com';
 
         const rsaWeData = {
             ...formData,
-            to: 'eman.maharana@gmail.com',
-            // to: "sales@bigwingbengaluru.com",
+            // to: 'eman.maharana@gmail.com',
+            to: recipientEmail,
             templateType: 'rsaWe',
             emailSubject: 'RSA WE',
             name: formData.fname + ' ' + formData.lname,
@@ -128,6 +136,7 @@ const RsaEw = () => {
             description: formData.description,
             selectedModel: formData.selectedModel,
         };
+
 
 
         try {
@@ -152,6 +161,9 @@ const RsaEw = () => {
         } catch (error) {
             console.error('Error sending email:', error);
             alert('Error sending email');
+        } finally {
+            // Re-enable the submit button if needed
+            setIsSubmitting(false);
         }
     };
 
@@ -190,7 +202,7 @@ const RsaEw = () => {
                         </select>
                     </div>
                     <div>
-                        <select  required className="rsa-select-branch" name="selectedBranch" onChange={handleInputChange} value={formData.selectedBranch}>
+                        <select required className="rsa-select-branch" name="selectedBranch" onChange={handleInputChange} value={formData.selectedBranch}>
                             {branches.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
@@ -278,7 +290,10 @@ const RsaEw = () => {
                     </label>
                 </div>
                 <div className="rsa-row7">
-                    <button className='rsa-btn' type="submit" onClick={handleSubmit}>Submit</button>
+                    {/* <button className='rsa-btn' type="submit" onClick={handleSubmit}>Submit</button> */}
+                    <button className='rsa-btn' type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+                        {isSubmitting ? 'Submitting.' : 'Submit'}
+                    </button>
                     <button className='rsa-btn' type="button" onClick={handleReset}>Reset</button>
                 </div>
             </div >

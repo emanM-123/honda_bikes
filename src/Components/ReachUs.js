@@ -2,21 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { validateEmail, validateMobile } from '../Utils/validation';
 import axios from 'axios';
 
-// const Notification = ({ message }) => {
-//   useEffect(() => {
-//       const timer = setTimeout(() => {
-//           message.setNotification(null);
-//       }, 5000);
-//       return () => clearTimeout(timer);
-//   }, [message]);
-
-//   return (
-//       <div style={styles.notificationContainer}>
-//           <p style={styles.notificationText}>{message.text}</p>
-//       </div>
-//   );
-// };
-
 export default function ReachUs() {
   const [selected, setSelected] = useState('SELECT YOUR BRANCH');
   const [otp, setOtp] = useState('');
@@ -45,6 +30,12 @@ export default function ReachUs() {
     { label: 'BANASHANKARI', value: 'BANASHANKARI' },
     { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
   ];
+
+  const branchEmails = {
+    'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+    'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+    'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+  };
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
@@ -52,6 +43,7 @@ export default function ReachUs() {
   const [mobile, setMobile] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFnameChange = (event) => {
     setFname(event.target.value);
@@ -87,7 +79,7 @@ export default function ReachUs() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (!fname || !email || !mobile || !selected) {
       alert('Please fill out all mandatory fields: First Name,Mobile Number, Email, and Branch');
       return;
@@ -106,7 +98,9 @@ export default function ReachUs() {
       alert('Please verify your OTP before submitting the form.');
       return;
     }
-    
+
+    setIsSubmitting(true);
+    const recipientEmail = branchEmails[selected] || 'sales@bigwingbengaluru.com';
 
     try {
       const data = {
@@ -117,9 +111,12 @@ export default function ReachUs() {
         phone: mobile,
         branch: selected,
         description: message,
-        to: 'eman.maharana@gmail.com',
-        // to: "sales@bigwingbengaluru.com",
+        // to: 'eman.maharana@gmail.com',
+        to: recipientEmail,
+
       };
+
+
 
 
       try {
@@ -135,6 +132,9 @@ export default function ReachUs() {
       } catch (error) {
         console.error('Error sending email:', error);
         alert('Error sending email');
+      } finally {
+        // Re-enable the submit button if needed
+        setIsSubmitting(false);
       }
 
     } catch (error) {
@@ -198,7 +198,7 @@ export default function ReachUs() {
           </div>
           <div className="input-row">
             <input required className="e-input" type="email" placeholder="ENTER EMAIL" value={email} onChange={handleEmailChange} />
-            <select  required className="s-input-select" onChange={handleSelectChange} value={selected}>
+            <select required className="s-input-select" onChange={handleSelectChange} value={selected}>
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -261,7 +261,10 @@ export default function ReachUs() {
           <textarea required className="rsa-desc-input" type="text" placeholder="MESSAGE" name="description" value={message} onChange={handleMessageChange} />
         </div>
         <div className="rsa-row7">
-          <button className='rsa-btn' type="submit" onClick={handleSubmit}>Submit</button>
+          {/* <button className='rsa-btn' type="submit" onClick={handleSubmit}>Submit</button> */}
+          <button className='rsa-btn' type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting.' : 'Submit'}
+          </button>
           <button className='rsa-btn' type="button" onClick={handleReset}>Reset</button>
         </div>
       </div>

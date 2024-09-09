@@ -18,6 +18,7 @@ const TestRide = (selectedBike) => {
     const [otpSent, setOtpSent] = useState(false);
     const [otpVerified, setOtpVerified] = useState(false);
     const [timerSeconds, setTimerSeconds] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         let interval;
@@ -73,14 +74,17 @@ const TestRide = (selectedBike) => {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
-console.log(selectedBranch, "selectedBranch");
+    const branchEmails = {
+        'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+        'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+        'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+    };
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData, "==================");
-        
 
-        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch ) {
+        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch) {
             alert('Please fill out all mandatory fields: First Name, Phone Number, Email , Model, Branch');
             return;
         }
@@ -104,6 +108,8 @@ console.log(selectedBranch, "selectedBranch");
             return;
         }
 
+        setIsSubmitting(true);
+        const recipientEmail = branchEmails[formData.branch] || 'sales@bigwingbengaluru.com';
 
         const data = {
             templateType: 'testRide',
@@ -113,8 +119,8 @@ console.log(selectedBranch, "selectedBranch");
             phone: formData.mobile,
             branch: selectedBranch,
             city: 'BANGALORE',
-            to: 'eman.maharana@gmail.com',
-            // to: "sales@bigwingbengaluru.com",
+            // to: 'eman.maharana@gmail.com',
+            to: recipientEmail,
 
             selectedModel: formData.selectedModel,
             forTestRide: 'Yes',
@@ -133,6 +139,9 @@ console.log(selectedBranch, "selectedBranch");
             }
         } catch (error) {
             console.error('Error sending email:', error);
+        } finally {
+            // Re-enable the submit button if needed
+            setIsSubmitting(false);
         }
     };
 
@@ -199,7 +208,7 @@ console.log(selectedBranch, "selectedBranch");
                     {!otpSent ? (
                         <div className='ride-mobile-div' >
                             <div>
-                                <select  required className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
+                                <select required className="ride-select-model" name="selectedModel" onChange={handleInputChange} value={formData.selectedModel}>
                                     {modelOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}

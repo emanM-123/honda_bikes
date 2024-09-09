@@ -248,7 +248,7 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  margin-left : 280px;
+  margin-left: 230px;
 }
 
 .form-group input{
@@ -282,7 +282,7 @@
     gap: 20px; /* Adjust gap for larger screens */
   }
   .submit-button {
-    margin-left: auto; /* Adjust alignment */
+    margin-left: 80px; /* Adjust alignment */
   }
 }
 

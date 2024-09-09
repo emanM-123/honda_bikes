@@ -5,6 +5,7 @@ import { validateEmail, validateMobile } from '../Utils/validation';
 const TestRide = (selectedBike) => {
     const [checked, setChecked] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState('');
+
     const [formData, setFormData] = useState({
         selectedModel: '',
         name: '',
@@ -12,7 +13,6 @@ const TestRide = (selectedBike) => {
         mobile: '',
         selectedBranch: ''
     });
-
     const [otp, setOtp] = useState('');
     const [enteredOtp, setEnteredOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
@@ -45,6 +45,13 @@ const TestRide = (selectedBike) => {
         { label: 'RAJA RAJESHWARI NAGAR', value: 'RAJA RAJESHWARI NAGAR' },
     ];
 
+    const branchEmails = {
+        'TOPLINE BENGALURU': 'sales@bigwingbengaluru.com',
+        'BANASHANKARI': 'bsksales@bigwingbengaluru.com',
+        'RAJA RAJESHWARI NAGAR': 'rrnagarsales@bigwingbengaluru.com',
+    };
+
+
     const modelOptions = [
         { label: 'SELECT MODEL', value: '' },
         { label: 'CB300F', value: 'CB300F' },
@@ -56,6 +63,8 @@ const TestRide = (selectedBike) => {
         { label: 'TRANSALP', value: 'TRANSALP' },
         { label: 'GOLDWING', value: 'GOLDWING' },
     ];
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     const handleBranchChange = (event) => {
         setSelectedBranch(event.target.value);
@@ -72,7 +81,7 @@ const TestRide = (selectedBike) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch ) {
+        if (!formData.name || !formData.mobile || !formData.email || !formData.selectedModel || !selectedBranch) {
             alert('Please fill out all mandatory fields: First Name, Phone Number, Email, Branch, and Model');
             return;
         }
@@ -96,6 +105,9 @@ const TestRide = (selectedBike) => {
             return;
         }
 
+        setIsSubmitting(true);
+
+        const recipientEmail = branchEmails[formData.branch] || 'sales@bigwingbengaluru.com';
 
         const data = {
             templateType: 'enquiryNow',
@@ -105,9 +117,8 @@ const TestRide = (selectedBike) => {
             phone: formData.mobile,
             branch: selectedBranch,
             city: 'BANGALORE',
-            to: 'eman.maharana@gmail.com',
-            // to: "sales@bigwingbengaluru.com",
-
+            // to: 'eman.maharana@gmail.com',
+            to: recipientEmail,
             selectedModel: formData.selectedModel,
             forEnquiry: 'Yes',
         };
@@ -125,6 +136,10 @@ const TestRide = (selectedBike) => {
             }
         } catch (error) {
             console.error('Error sending email:', error);
+        }
+        finally {
+            // Re-enable the submit button if needed
+            setIsSubmitting(false);
         }
     };
 
@@ -292,7 +307,11 @@ const TestRide = (selectedBike) => {
                         <span className="ride-checkbox-text">I agree to the Terms & Conditions</span>
                     </label>
                     <div className="ride-input-btn1">
-                        <button className='ride-btn1' type="submit" onClick={handleSubmit}>Submit</button>
+                        {/* <button className='ride-btn1' type="submit" onClick={handleSubmit}>Submit</button> */}
+                        <button className='ride-btn1' type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+                            {isSubmitting ? 'Submitting.' : 'Submit'}
+                        </button>
+
                         <button className='ride-btn1' type="button">Reset</button>
                     </div>
                 </div>
