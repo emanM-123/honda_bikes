@@ -177,7 +177,7 @@ const bikeSDetails = [
     {
         id: 1,
         modelName: "CB300F",
-        image: "/bikeImages/CB300F_RED.png",
+        image: "/bikeImages/CB300F/CB300F_RED.png",
         gallery: [
             "/Content/Gallery/CB300F/Gallery1.jpg",
             "/Content/Gallery/CB300F/Gallery2.jpg",
@@ -240,24 +240,37 @@ const bikeSDetails = [
         ],
         variants: [
             {
-                name: "",
+                name: "CB300F DLX PRO",
                 price: "Rs.170001",
                 colors: [
                     {
                         color: "SPORTS RED",
-                        link: "/bikeImages/CB300F_RED.png"
+                        link: "/bikeImages/CB300F/CB300F_RED.png"
                     },
                     {
                         color: "MAT MARVEL BLUE METALLIC",
-                        link: "/bikeImages/CB300F_BLUE.png"
+                        link: "/bikeImages/CB300F/CB300F_BLUE.png"
                     },
                     {
                         color: "MAT AXIS GREY METALLIC",
-                        link: "/bikeImages/CB300F_GRAY.png"
+                        link: "/bikeImages/CB300F/CB300F_GRAY.png"
                     },
                 ],
-
             },
+            {
+                name: "CB300F FLEX FUEL",
+                price: "Rs.170001",
+                colors: [
+                    {
+                        color: "SPORTS RED",
+                        link: "/bikeImages/CB300F/SPORTS_Flex_RED.png"
+                    },
+                    {
+                        color: "MAT AXIS GREY METALLIC",
+                        link: "/bikeImages/CB300F/CB300F_Flex_GRAY.png"
+                    },
+                ]
+            }
         ],
         features: [
             {
